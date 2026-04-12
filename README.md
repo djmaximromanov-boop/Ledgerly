@@ -1,10 +1,23 @@
-# Ledgerly
+<p align="center">
+  <h1 align="center">Ledgerly</h1>
+  <p align="center">
+    <strong>Your money. Your data. Your rules.</strong>
+  </p>
+  <p align="center">
+    <a href="https://github.com/DMLayMan/Ledgerly/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DMLayMan/Ledgerly?color=blue" alt="License"></a>
+    <a href="https://github.com/DMLayMan/Ledgerly/issues"><img src="https://img.shields.io/github/issues/DMLayMan/Ledgerly" alt="Issues"></a>
+    <a href="https://github.com/DMLayMan/Ledgerly/pulls"><img src="https://img.shields.io/github/issues-pr/DMLayMan/Ledgerly" alt="Pull Requests"></a>
+    <img src="https://img.shields.io/badge/platform-iOS%2017%2B-lightgrey" alt="Platform">
+    <img src="https://img.shields.io/badge/Swift-5.9-orange" alt="Swift">
+    <img src="https://img.shields.io/badge/dependencies-zero-green" alt="Dependencies">
+  </p>
+</p>
 
-> **Your money. Your data. Your rules.**
+---
 
-Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports personal and shared ledger management, budget tracking, and rich statistical insights — all powered by Core Data + CloudKit with zero third-party dependencies.
+Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports personal and shared ledger management, budget tracking, and rich statistical insights — all powered by Core Data + CloudKit with **zero third-party dependencies**.
 
-## Features
+## ✨ Features
 
 - **Quick Entry** — Custom calculator keyboard with expression support (+, -, ×), two-level category grid, expense/income toggle
 - **Bill Management** — Monthly filtering, search, daily grouping, swipe-to-delete
@@ -18,8 +31,9 @@ Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports p
 - **iCloud Sync** — Automatic sync via NSPersistentCloudKitContainer
 - **Data Archiving** — Auto-archive records older than 6 months or exceeding 10,000 entries
 - **Notifications** — Budget overrun alerts, daily recording reminders
+- **Localization** — In-app language switching (English / 简体中文), extensible for more languages
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Component | Technology |
 |---|---|
@@ -34,28 +48,28 @@ Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports p
 
 **Zero third-party dependencies.**
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Ledgerly/
 ├── LedgerlyApp.swift              # App entry
-├── ContentView.swift            # TabView container
+├── ContentView.swift              # TabView container
 ├── Models/
-│   ├── CoreData/                # Core Data entities + extensions
-│   └── Enums/                   # Type enums (BookType, TransactionType, etc.)
-├── Persistence/                 # PersistenceController + CoreDataStack
-├── ViewModels/                  # MVVM ViewModels
+│   ├── CoreData/                  # Core Data entities + extensions
+│   └── Enums/                     # Type enums (BookType, TransactionType, etc.)
+├── Persistence/                   # PersistenceController + CoreDataStack
+├── ViewModels/                    # MVVM ViewModels
 ├── Views/
-│   ├── Tabs/                    # Main tab views
-│   ├── Components/              # Reusable UI components
-│   ├── Charts/                  # Chart views
-│   └── Sharing/                 # Sharing & member management
-├── Services/                    # CloudKit, Notifications, Archive
-├── Extensions/                  # Color theme, Date helpers, Decimal formatting
-└── Resources/                   # Asset catalog
+│   ├── Tabs/                      # Main tab views
+│   ├── Components/                # Reusable UI components
+│   ├── Charts/                    # Chart views
+│   └── Sharing/                   # Sharing & member management
+├── Services/                      # CloudKit, Notifications, Archive, Localization
+├── Extensions/                    # Color theme, Date helpers, Decimal formatting
+└── Resources/                     # Asset catalog
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -66,7 +80,7 @@ Ledgerly/
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/Ledgerly.git
+git clone https://github.com/DMLayMan/Ledgerly.git
 cd Ledgerly
 
 # Generate Xcode project
@@ -75,6 +89,22 @@ xcodegen generate
 # Open in Xcode
 open Ledgerly.xcodeproj
 ```
+
+### Run on Simulator (CLI)
+
+```bash
+# Build and launch on simulator
+./run_device.sh --simulator
+```
+
+### Run on Real Device
+
+```bash
+# Build and install on connected iPhone
+./run_device.sh --device
+```
+
+> Requires a valid Apple Developer signing identity. The script will guide you through setup if needed.
 
 ### iCloud Configuration
 
@@ -86,7 +116,7 @@ To enable CloudKit sync and shared ledgers:
 
 > On the Simulator, CloudKit sync is automatically disabled for development convenience.
 
-## Architecture
+## 🏗 Architecture
 
 ```
 LedgerlyApp (Entry)
@@ -100,9 +130,10 @@ LedgerlyApp (Entry)
 Pattern: MVVM
 Persistence: Core Data + NSPersistentCloudKitContainer
 Sync: CloudKit (Private + Shared Database)
+Localization: LocalizationManager (EnvironmentObject)
 ```
 
-## Data Model
+## 📊 Data Model
 
 7 Core Data entities: **Book**, **Category**, **Transaction**, **Member**, **Budget**, **Account**, **SplitRecord**
 
@@ -111,10 +142,23 @@ Key relationships:
 - Transaction → Category, Member (N:1, Nullify)
 - Transaction → SplitRecords (1:N, Cascade)
 
-## Documentation
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+
+- Code of Conduct
+- How to submit issues and feature requests
+- Pull request process and coding standards
+- Development workflow
+
+## 📄 Documentation
 
 Full product and technical specification: [LEDGERLY_SPEC.md](./LEDGERLY_SPEC.md)
 
-## License
+## 🛡 Security
 
-MIT
+If you discover a security vulnerability, please do **not** open a public issue. Instead, email the maintainer privately or use [GitHub Security Advisories](https://github.com/DMLayMan/Ledgerly/security/advisories/new).
+
+## 📜 License
+
+Ledgerly is released under the [MIT License](./LICENSE).
