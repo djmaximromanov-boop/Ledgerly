@@ -1,0 +1,6 @@
+import Foundation
+
+enum TransactionType: String, Codable {
+    case expense
+    case income
+}
