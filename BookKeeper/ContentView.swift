@@ -2,37 +2,38 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @State private var selectedTab = 0
 
     var body: some View {
         TabView(selection: $selectedTab) {
             QuickEntryView()
                 .tabItem {
-                    Label("Record", systemImage: "plus.circle")
+                    Label(loc["tab.record"], systemImage: "plus.circle")
                 }
                 .tag(0)
 
             BillListView()
                 .tabItem {
-                    Label("Bills", systemImage: "list.bullet")
+                    Label(loc["tab.bills"], systemImage: "list.bullet")
                 }
                 .tag(1)
 
             StatisticsView()
                 .tabItem {
-                    Label("Stats", systemImage: "chart.pie")
+                    Label(loc["tab.stats"], systemImage: "chart.pie")
                 }
                 .tag(2)
 
             BookManagementView()
                 .tabItem {
-                    Label("Ledgers", systemImage: "book")
+                    Label(loc["tab.ledgers"], systemImage: "book")
                 }
                 .tag(3)
 
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label(loc["tab.settings"], systemImage: "gearshape")
                 }
                 .tag(4)
         }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TransactionRow: View {
+    @EnvironmentObject var loc: LocalizationManager
     let transaction: Transaction
 
     var body: some View {

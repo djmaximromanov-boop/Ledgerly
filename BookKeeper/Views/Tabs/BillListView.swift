@@ -3,6 +3,7 @@ import CoreData
 
 struct BillListView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @Environment(\.managedObjectContext) private var viewContext
 
     @State private var selectedMonth = Date()
@@ -152,11 +153,11 @@ struct BillListView: View {
             }
 
             VStack(spacing: 6) {
-                Text("No expenses this month")
+                Text(loc["bills.noExpenses"])
                     .font(.headline)
                     .foregroundStyle(.primary)
 
-                Text("Keep it up! 🎉")
+                Text(loc["bills.keepItUp"])
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -246,7 +247,7 @@ struct BillListView: View {
                                 Button(role: .destructive) {
                                     performDelete(transaction)
                                 } label: {
-                                    Label("Delete", systemImage: "trash")
+                                    Label(loc["bills.delete"], systemImage: "trash")
                                 }
                             }
                     }

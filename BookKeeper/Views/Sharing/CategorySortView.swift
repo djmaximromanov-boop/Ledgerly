@@ -5,6 +5,7 @@ struct CategorySortView: View {
     let book: Book
     let categoryType: CategoryType
 
+    @EnvironmentObject var loc: LocalizationManager
     @Environment(\.dismiss) private var dismiss
     @State private var categories: [Category] = []
 
@@ -25,7 +26,7 @@ struct CategorySortView: View {
                         Spacer()
 
                         if category.isSystem {
-                            Text("Default")
+                            Text(loc["sort.default"])
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                                 .padding(.horizontal, 8)
@@ -38,11 +39,11 @@ struct CategorySortView: View {
                 }
                 .onMove(perform: move)
             }
-            .navigationTitle("Sort Categories")
+            .navigationTitle(loc["sort.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") { dismiss() }
+                    Button(loc["sort.done"]) { dismiss() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()

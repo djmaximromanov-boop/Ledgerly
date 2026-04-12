@@ -5,6 +5,7 @@ import SwiftUI
 @MainActor
 class SharingViewModel: ObservableObject {
     private let cloudKitService = CloudKitService.shared
+    private let loc = LocalizationManager()
 
     @Published var isSharing = false
     @Published var shareError: String?
@@ -19,7 +20,7 @@ class SharingViewModel: ObservableObject {
         do {
             let accountStatus = await cloudKitService.checkAccountStatus()
             guard accountStatus == .available else {
-                shareError = "Please sign in to your iCloud account first"
+                shareError = loc["service.signInICloud"]
                 isSharing = false
                 return nil
             }
@@ -27,7 +28,7 @@ class SharingViewModel: ObservableObject {
             let context = persistenceController.viewContext
             let book = Book.create(in: context, name: name, icon: icon, type: .shared)
             Category.createDefaultCategories(for: book, in: context)
-            let _ = Member.create(in: context, name: "Me", book: book, role: .owner)
+            let _ = Member.create(in: context, name: loc["common.me"], book: book, role: .owner)
             persistenceController.save()
 
             let zone = try await cloudKitService.createSharedBookZone(bookId: book.id)

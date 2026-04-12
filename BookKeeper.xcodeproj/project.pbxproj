@@ -58,6 +58,8 @@
 		F3D1ECC98C868F7CF31A598C /* AccountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869BBC0E4D2F6DD5E7BCAACE /* AccountType.swift */; };
 		FA796B15F1F2AB4C631E1532 /* MemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBBF766EBAA99C5D2C0378B /* MemberListView.swift */; };
 		FC324848205CCC1ADF831443 /* MemberComparisonChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA5A7B612FF22E0D1FFAEB /* MemberComparisonChart.swift */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A7B8C9D0E1F2A3 /* LocalizationManager.swift */; };
+		C3D4E5F6A7B8C9D0E1F2A3B4 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6A7B8C9D0E1F2A3B4C5 /* Language.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,8 @@
 		EF643ABE163BA1D4A152FE78 /* BookKeeperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookKeeperApp.swift; sourceTree = "<group>"; };
 		F77EE15F55441DBE55668004 /* QuickEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickEntryView.swift; sourceTree = "<group>"; };
 		F8B421EE90A3F3BA8289F9DB /* QuickAddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAddCategoryView.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		D4E5F6A7B8C9D0E1F2A3B4C5 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -187,6 +191,7 @@
 				B1759ECA4C42CADF279F3C9B /* BookType.swift */,
 				3208B6EEE8BFD0EFBFFE0338 /* BudgetPeriod.swift */,
 				9BD2D2A12B1EC24F1D2A95ED /* CategoryType.swift */,
+				D4E5F6A7B8C9D0E1F2A3B4C5 /* Language.swift */,
 				B661603CE64ED2024E060A00 /* MemberRole.swift */,
 				0F3D06E37703BCF51BB284D4 /* TransactionType.swift */,
 			);
@@ -228,6 +233,7 @@
 			children = (
 				C6C48074A11371DDD593079A /* ArchiveService.swift */,
 				656F1C37B6D50CCC08E4CE92 /* CloudKitService.swift */,
+				B2C3D4E5F6A7B8C9D0E1F2A3 /* LocalizationManager.swift */,
 				DB4C4D2510453620EE517EF3 /* NotificationService.swift */,
 				1CA5193335ABA8FF575749A3 /* SharingService.swift */,
 			);
@@ -400,6 +406,8 @@
 				E0A469C8382424ACEEE3910E /* CategoryType.swift in Sources */,
 				939ECF675391216B141580CD /* CategoryViewModel.swift in Sources */,
 				AC3F92CA7FC9D7773BA7F390 /* CloudKitService.swift in Sources */,
+				C3D4E5F6A7B8C9D0E1F2A3B4 /* Language.swift in Sources */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* LocalizationManager.swift in Sources */,
 				E059C54B8E9B310165FB049D /* Color+Theme.swift in Sources */,
 				612AA5D3DDC1F87FB1FBEF72 /* ContentView.swift in Sources */,
 				7BE0E3DD85B00BE9C2571ABE /* CoreDataStack.swift in Sources */,

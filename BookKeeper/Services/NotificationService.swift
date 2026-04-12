@@ -18,8 +18,8 @@ class NotificationService: ObservableObject {
 
     func scheduleBudgetOverrunNotification(bookName: String, budgetAmount: Decimal, spentAmount: Decimal) {
         let content = UNMutableNotificationContent()
-        content.title = "Budget Overrun Alert"
-        content.body = "\(bookName) Over budget by \((spentAmount - budgetAmount).currencyString)"
+        content.title = LocalizationManager.localized("notification.budgetOverrun")
+        content.body = "\(bookName) \(String(format: LocalizationManager.localized("notification.overBudgetBy"), (spentAmount - budgetAmount).currencyString))"
         content.sound = .default
 
         let request = UNNotificationRequest(
@@ -33,8 +33,8 @@ class NotificationService: ObservableObject {
 
     func scheduleDailyReminder() {
         let content = UNMutableNotificationContent()
-        content.title = "Recording Reminder"
-        content.body = "Don't forget to record today's expenses"
+        content.title = LocalizationManager.localized("notification.dailyReminder")
+        content.body = LocalizationManager.localized("notification.reminderBody")
         content.sound = .default
 
         var dateComponents = DateComponents()

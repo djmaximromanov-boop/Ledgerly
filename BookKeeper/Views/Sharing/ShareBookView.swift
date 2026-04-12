@@ -3,6 +3,7 @@ import CloudKit
 
 struct ShareBookView: View {
     let book: Book
+    @EnvironmentObject var loc: LocalizationManager
     @StateObject private var sharingVM = SharingViewModel()
     @Environment(\.dismiss) private var dismiss
 
@@ -16,19 +17,19 @@ struct ShareBookView: View {
                     .font(.system(size: 60))
                     .foregroundStyle(Color.accentColor)
 
-                Text("Share「\(book.name)」")
+                Text(String(format: loc["share.shareName"], book.name))
                     .font(.title2)
                     .fontWeight(.semibold)
 
-                Text("Invite family or team members to track together")
+                Text(loc["share.subtitle"])
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    ShareFeatureRow(icon: "link", title: "Invite via Link", description: "Generate a share link to send to members")
-                    ShareFeatureRow(icon: "person.badge.plus", title: "Permissions", description: "Set members to record or read-only permission")
-                    ShareFeatureRow(icon: "arrow.triangle.2.circlepath", title: "Real-time Sync", description: "All members' records sync instantly")
+                    ShareFeatureRow(icon: "link", title: loc["share.inviteViaLink"], description: loc["share.inviteViaLinkDesc"])
+                    ShareFeatureRow(icon: "person.badge.plus", title: loc["share.permissions"], description: loc["share.permissionsDesc"])
+                    ShareFeatureRow(icon: "arrow.triangle.2.circlepath", title: loc["share.realtimeSync"], description: loc["share.realtimeSyncDesc"])
                 }
                 .padding()
                 .background(Color(.secondarySystemBackground))
@@ -44,7 +45,7 @@ struct ShareBookView: View {
                             ProgressView()
                                 .tint(.white)
                         }
-                        Text(sharingVM.isSharing ? "Creating..." : "Start Sharing")
+                        Text(sharingVM.isSharing ? loc["share.creating"] : loc["share.startSharing"])
                     }
                     .font(.headline)
                     .foregroundStyle(.white)
@@ -62,11 +63,11 @@ struct ShareBookView: View {
                 }
             }
             .padding()
-            .navigationTitle("Share Ledger")
+            .navigationTitle(loc["share.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
+                    Button(loc["share.cancel"]) { dismiss() }
                 }
             }
         }

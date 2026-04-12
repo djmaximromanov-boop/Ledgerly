@@ -3,6 +3,7 @@ import CoreData
 
 struct BookHeaderView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
 
     var body: some View {
         if let book = bookVM.currentBook {
@@ -19,7 +20,7 @@ struct BookHeaderView: View {
                         .fontWeight(.semibold)
 
                     HStack(spacing: 4) {
-                        Text(book.bookType == .personal ? "Personal" : "Shared")
+                        Text(book.bookType == .personal ? loc["quickEntry.personal"] : loc["quickEntry.shared"])
                             .font(.caption)
 
                         if book.bookType == .shared {

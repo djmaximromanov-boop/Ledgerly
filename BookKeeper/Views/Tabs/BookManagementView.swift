@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BookManagementView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @StateObject private var budgetVM = BudgetViewModel()
     @State private var showAddBudget = false
     @State private var newBudgetAmount = ""
@@ -15,7 +16,7 @@ struct BookManagementView: View {
                 sharedBooksSection
                 budgetSection
             }
-            .navigationTitle("Ledgers")
+            .navigationTitle(loc["ledgers.title"])
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
@@ -23,13 +24,13 @@ struct BookManagementView: View {
                             bookVM.newBookType = .personal
                             bookVM.showCreateSheet = true
                         } label: {
-                            Label("Personal", systemImage: "person")
+                            Label(loc["ledgers.personal"], systemImage: "person")
                         }
                         Button {
                             bookVM.newBookType = .shared
                             bookVM.showCreateSheet = true
                         } label: {
-                            Label("Shared", systemImage: "person.2")
+                            Label(loc["ledgers.shared"], systemImage: "person.2")
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -39,15 +40,15 @@ struct BookManagementView: View {
             .sheet(isPresented: $bookVM.showCreateSheet) {
                 CreateBookView()
             }
-            .alert("Add Budget", isPresented: $showAddBudget) {
-                TextField("Amount", text: $newBudgetAmount)
+            .alert(loc["ledgers.addBudget"], isPresented: $showAddBudget) {
+                TextField(loc["ledgers.amount"], text: $newBudgetAmount)
                     .keyboardType(.decimalPad)
-                Picker("Period", selection: $newBudgetPeriod) {
-                    Text("Monthly").tag(BudgetPeriod.monthly)
-                    Text("Yearly").tag(BudgetPeriod.yearly)
+                Picker(loc["ledgers.period"], selection: $newBudgetPeriod) {
+                    Text(loc["ledgers.monthly"]).tag(BudgetPeriod.monthly)
+                    Text(loc["ledgers.yearly"]).tag(BudgetPeriod.yearly)
                 }
-                Button("Cancel", role: .cancel) { newBudgetAmount = "" }
-                Button("Add") {
+                Button(loc["ledgers.cancel"], role: .cancel) { newBudgetAmount = "" }
+                Button(loc["ledgers.add"]) {
                     if let book = bookVM.currentBook,
                        let amount = Decimal(string: newBudgetAmount), amount > 0 {
                         budgetVM.createBudget(for: book, amount: amount, period: newBudgetPeriod)
@@ -55,7 +56,7 @@ struct BookManagementView: View {
                     newBudgetAmount = ""
                 }
             } message: {
-                Text("Enter budget amount")
+                Text(loc["ledgers.enterBudgetAmount"])
             }
             .onChange(of: bookVM.currentBook) { _, newBook in
                 if let book = newBook {
@@ -83,7 +84,7 @@ struct BookManagementView: View {
                 }
             }
         } header: {
-            Label("Personal", systemImage: "person")
+            Label(loc["ledgers.personal"], systemImage: "person")
         }
     }
 
@@ -101,7 +102,7 @@ struct BookManagementView: View {
                         NavigationLink {
                             MemberListView(book: book)
                         } label: {
-                            Label("Members", systemImage: "person.2")
+                            Label(loc["ledgers.members"], systemImage: "person.2")
                         }
                         .tint(.blue)
                     }
@@ -113,7 +114,7 @@ struct BookManagementView: View {
                 }
             }
         } header: {
-            Label("Shared", systemImage: "person.2")
+            Label(loc["ledgers.shared"], systemImage: "person.2")
         }
     }
 
@@ -136,16 +137,17 @@ struct BookManagementView: View {
                 Button {
                     showAddBudget = true
                 } label: {
-                    Label("Add Budget", systemImage: "plus.circle")
+                    Label(loc["ledgers.addBudget"], systemImage: "plus.circle")
                 }
             }
         } header: {
-            Label("Budgets", systemImage: "target")
+            Label(loc["ledgers.budgets"], systemImage: "target")
         }
     }
 }
 
 struct BookRow: View {
+    @EnvironmentObject var loc: LocalizationManager
     let book: Book
     let isSelected: Bool
 
@@ -175,7 +177,7 @@ struct BookRow: View {
 
                 let memberCount = book.members?.count ?? 0
                 if book.bookType == .shared && memberCount > 0 {
-                    Text("\(memberCount) members")
+                    Text(String(format: loc["ledgers.memberCount"], memberCount))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -217,6 +219,7 @@ struct BookRow: View {
 
 struct CreateBookView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @Environment(\.dismiss) private var dismiss
 
     let icons = ["book.fill", "house.fill", "airplane.departure", "cart.fill", "briefcase.fill", "heart.fill", "star.fill", "flag.fill", "wallet.pass.fill", "creditcard.fill", "pawprint.fill", "person.2.fill"]
@@ -225,15 +228,15 @@ struct CreateBookView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Basic Info") {
-                    TextField("Ledger name", text: $bookVM.newBookName)
+                Section(loc["ledgers.basicInfo"]) {
+                    TextField(loc["ledgers.ledgerName"], text: $bookVM.newBookName)
 
                     HStack(spacing: 12) {
                         BookTypeCard(
                             type: .personal,
                             icon: "person.fill",
-                            title: "Personal",
-                            subtitle: "Private tracking",
+                            title: loc["ledgers.personal"],
+                            subtitle: loc["ledgers.privateTracking"],
                             isSelected: bookVM.newBookType == .personal
                         ) {
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
@@ -244,8 +247,8 @@ struct CreateBookView: View {
                         BookTypeCard(
                             type: .shared,
                             icon: "person.2.fill",
-                            title: "Shared",
-                            subtitle: "Team collaboration",
+                            title: loc["ledgers.shared"],
+                            subtitle: loc["ledgers.teamCollaboration"],
                             isSelected: bookVM.newBookType == .shared
                         ) {
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
@@ -256,7 +259,7 @@ struct CreateBookView: View {
                     .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                 }
 
-                Section("Icon") {
+                Section(loc["ledgers.icon"]) {
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 12) {
                         ForEach(icons, id: \.self) { icon in
                             Image(systemName: icon)
@@ -281,14 +284,14 @@ struct CreateBookView: View {
                     .padding(.vertical, 4)
                 }
             }
-            .navigationTitle("New Ledger")
+            .navigationTitle(loc["ledgers.newLedger"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
+                    Button(loc["ledgers.cancel"]) { dismiss() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Create") {
+                    Button(loc["ledgers.create"]) {
                         if !bookVM.newBookName.isEmpty {
                             bookVM.createBook()
                             dismiss()

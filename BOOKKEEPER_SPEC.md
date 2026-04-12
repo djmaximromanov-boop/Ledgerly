@@ -26,8 +26,8 @@
 | 语言 | Swift 5.9 |
 | 框架 | SwiftUI + SwiftData(Core Data) + CloudKit + Charts |
 | 构建工具 | Xcode 16.0 + XcodeGen (project.yml) |
-| Bundle ID | com.bookkeeper.app |
-| iCloud 容器 | iCloud.com.bookkeeper.app |
+| Bundle ID | com.ledgerly.app |
+| iCloud 容器 | iCloud.com.ledgerly.app |
 | 版本 | 1.0.0 |
 | 设备 | iPhone only（TARGETED_DEVICE_FAMILY: 1） |
 | 方向 | 仅竖屏 |
@@ -98,7 +98,7 @@
 ### 3.1 整体架构
 
 ```
-BookKeeperApp (入口)
+LedgerlyApp (入口)
   └─ ContentView (TabView, 5 个 Tab)
        ├─ QuickEntryView      (记账)
        ├─ BillListView        (账单)
@@ -116,7 +116,7 @@ BookKeeperApp (入口)
 
 ```
 BookKeeper/
-├── BookKeeperApp.swift              # App 入口
+├── LedgerlyApp.swift              # App 入口 (LedgerlyApp)
 ├── ContentView.swift                # TabView 主容器
 ├── Info.plist                       # 应用配置
 ├── BookKeeper.entitlements          # iCloud 权限
@@ -530,7 +530,7 @@ Sheet：分类编辑（名称输入 + 图标网格选择）
 
 ### 8.1 PersistenceController
 
-- 使用 `NSPersistentCloudKitContainer(name: "BookKeeper")`
+- 使用 `NSPersistentCloudKitContainer(name: "Ledgerly")`
 - 启用 `NSPersistentHistoryTrackingKey` 和 `NSPersistentStoreRemoteChangeNotificationPostOptionKey`
 - 模拟器环境禁用 CloudKit（`cloudKitContainerOptions = nil`）
 - `automaticallyMergesChangesFromParent = true`
@@ -539,7 +539,7 @@ Sheet：分类编辑（名称输入 + 图标网格选择）
 
 ### 8.2 CloudKitService (actor)
 
-- 容器：`iCloud.com.bookkeeper.app`
+- 容器：`iCloud.com.ledgerly.app`
 - 每个共享账本一个 Custom Zone：`BookZone_{bookId}`
 - 关键方法：
   - `createSharedBookZone(bookId:)`: 创建自定义 Zone
@@ -666,9 +666,9 @@ View → ViewModel → PersistenceController → Core Data → CloudKit (自动�
 项目使用 XcodeGen 生成 `.xcodeproj`，配置文件为 `project.yml`：
 
 ```yaml
-name: BookKeeper
+name: Ledgerly
 options:
-  bundleIdPrefix: com.bookkeeper
+  bundleIdPrefix: com.ledgerly
   deploymentTarget:
     iOS: "17.0"
   xcodeVersion: "16.0"
@@ -686,10 +686,10 @@ settings:
 
 ### 12.3 Info.plist 关键配置
 
-- `CFBundleDisplayName`: 记账本
+- `CFBundleDisplayName`: Ledgerly
 - `CFBundleDevelopmentRegion`: zh_CN
 - `CKSharingSupported`: true
-- `NSCloudKitUsageDescription`: 记账本需要使用 iCloud 来同步您的记账数据，并支持与家庭成员共享账本
+- `NSCloudKitUsageDescription`: Ledgerly needs iCloud to sync your data and support shared ledgers with family members
 - `UIBackgroundModes`: remote-notification
 - `UISupportedInterfaceOrientations`: UIInterfaceOrientationPortrait
 
@@ -714,8 +714,8 @@ settings:
 
 ### 13.2 关键注意事项
 
-1. **Core Data 模型名称**必须为 `BookKeeper`，与 `NSPersistentCloudKitContainer(name: "BookKeeper")` 一致
-2. **CloudKit 容器 ID**必须为 `iCloud.com.bookkeeper.app`，且需在 Apple Developer 后台配置
+1. **Core Data 模型名称**必须为 `Ledgerly`，与 `NSPersistentCloudKitContainer(name: "Ledgerly")` 一致
+2. **CloudKit 容器 ID**必须为 `iCloud.com.ledgerly.app`，且需在 Apple Developer 后台配置
 3. **模拟器环境**自动禁用 CloudKit 同步（通过 `#if targetEnvironment(simulator)` 判断）
 4. **首次启动**自动调用 `seedDemoDataIfNeeded()` 生成演示数据
 5. **Category 的预设数据**在 `Category+CoreData.swift` 的静态属性中定义
@@ -727,7 +727,7 @@ settings:
 
 如需最小化重建，核心路径为：
 
-1. BookKeeperApp + ContentView（TabView 骨架）
+1. LedgerlyApp + ContentView（TabView 骨架）
 2. Core Data 模型（Book + Transaction + Category 三个核心实体）
 3. PersistenceController（含 seedDemoData）
 4. BookViewModel + TransactionViewModel

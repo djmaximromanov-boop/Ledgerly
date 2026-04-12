@@ -3,6 +3,7 @@ import SwiftUI
 struct SplitSetupView: View {
     let transaction: Transaction
     let book: Book
+    @EnvironmentObject var loc: LocalizationManager
     @Environment(\.dismiss) private var dismiss
 
     @State private var splitMode: SplitMode = .equal
@@ -25,16 +26,16 @@ struct SplitSetupView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Split Method") {
-                    Picker("Method", selection: $splitMode) {
+                Section(loc["split.method"]) {
+                    Picker(loc["split.methodLabel"], selection: $splitMode) {
                         ForEach(SplitMode.allCases, id: \.self) { mode in
-                            Text(mode.rawValue).tag(mode)
+                            Text(mode == .equal ? loc["split.equalSplit"] : loc["split.customRatio"]).tag(mode)
                         }
                     }
                     .pickerStyle(.segmented)
                 }
 
-                Section("Select Members") {
+                Section(loc["split.selectMembers"]) {
                     ForEach(members, id: \.id) { member in
                         HStack {
                             Image(systemName: selectedMembers.contains(member.id) ? "checkmark.circle.fill" : "circle")
@@ -50,7 +51,7 @@ struct SplitSetupView: View {
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 } else {
-                                    TextField("Ratio", value: Binding(
+                                    TextField(loc["split.ratio"], value: Binding(
                                         get: { customRatios[member.id] ?? 1.0 },
                                         set: { customRatios[member.id] = $0 }
                                     ), format: .number)
@@ -67,9 +68,9 @@ struct SplitSetupView: View {
                     }
                 }
 
-                Section("Split Details") {
+                Section(loc["split.details"]) {
                     HStack {
-                        Text("Total")
+                        Text(loc["split.total"])
                         Spacer()
                         Text(totalAmount.currencyString)
                             .fontWeight(.medium)
@@ -84,14 +85,14 @@ struct SplitSetupView: View {
                     }
                 }
             }
-            .navigationTitle("Split Bill")
+            .navigationTitle(loc["split.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
+                    Button(loc["split.cancel"]) { dismiss() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save") {
+                    Button(loc["split.save"]) {
                         saveSplit()
                         dismiss()
                     }

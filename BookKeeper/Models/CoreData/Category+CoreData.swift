@@ -29,106 +29,106 @@ extension Category {
         !isSystem
     }
 
-    static let defaultExpenseCategories: [(name: String, icon: String, children: [(String, String)])] = [
-        ("Food", "fork.knife", [
-            ("Breakfast", "cup.and.saucer.fill"),
-            ("Lunch", "takeoutbag.and.cup.and.straw.fill"),
-            ("Dinner", "wineglass.fill"),
-            ("Snacks", "birthday.cake.fill"),
-            ("Drinks", "mug.fill"),
-            ("Fruits", "apple.fill"),
-            ("Takeout", "bag.fill")
+    static let defaultExpenseCategories: [(nameKey: String, icon: String, children: [(String, String)])] = [
+        ("category.food", "fork.knife", [
+            ("category.food.breakfast", "cup.and.saucer.fill"),
+            ("category.food.lunch", "takeoutbag.and.cup.and.straw.fill"),
+            ("category.food.dinner", "wineglass.fill"),
+            ("category.food.snacks", "birthday.cake.fill"),
+            ("category.food.drinks", "mug.fill"),
+            ("category.food.fruits", "apple.fill"),
+            ("category.food.takeout", "bag.fill")
         ]),
-        ("Transport", "car.fill", [
-            ("Bus", "bus.fill"),
-            ("Metro", "tram.fill"),
-            ("Taxi", "car.side.fill"),
-            ("Gas", "fuelpump.fill"),
-            ("Parking", "parkingsign.circle.fill"),
-            ("Toll", "building.columns.fill"),
-            ("Bike Share", "bicycle")
+        ("category.transport", "car.fill", [
+            ("category.transport.bus", "bus.fill"),
+            ("category.transport.metro", "tram.fill"),
+            ("category.transport.taxi", "car.side.fill"),
+            ("category.transport.gas", "fuelpump.fill"),
+            ("category.transport.parking", "parkingsign.circle.fill"),
+            ("category.transport.toll", "building.columns.fill"),
+            ("category.transport.bikeShare", "bicycle")
         ]),
-        ("Shopping", "bag.fill", [
-            ("Clothes", "shirt.fill"),
-            ("Daily Goods", "house.fill"),
-            ("Electronics", "laptopcomputer.and.iphone"),
-            ("Cosmetics", "drop.fill"),
-            ("Shoes & Bags", "handbag.fill"),
-            ("Appliances", "tv.fill")
+        ("category.shopping", "bag.fill", [
+            ("category.shopping.clothes", "shirt.fill"),
+            ("category.shopping.dailyGoods", "house.fill"),
+            ("category.shopping.electronics", "laptopcomputer.and.iphone"),
+            ("category.shopping.cosmetics", "drop.fill"),
+            ("category.shopping.shoesBags", "handbag.fill"),
+            ("category.shopping.appliances", "tv.fill")
         ]),
-        ("Housing", "house.fill", [
-            ("Rent", "building.fill"),
-            ("Utilities", "bolt.fill"),
-            ("HOA", "building.2.fill"),
-            ("Repairs", "wrench.and.screwdriver.fill"),
-            ("Gas Bill", "flame.fill"),
-            ("Internet", "wifi")
+        ("category.housing", "house.fill", [
+            ("category.housing.rent", "building.fill"),
+            ("category.housing.utilities", "bolt.fill"),
+            ("category.housing.hoa", "building.2.fill"),
+            ("category.housing.repairs", "wrench.and.screwdriver.fill"),
+            ("category.housing.gasBill", "flame.fill"),
+            ("category.housing.internet", "wifi")
         ]),
-        ("Entertainment", "gamecontroller.fill", [
-            ("Movies", "film.fill"),
-            ("Games", "gamecontroller.fill"),
-            ("Travel", "airplane.departure"),
-            ("Sports", "figure.run"),
-            ("Music", "music.note"),
-            ("Social", "person.2.fill")
+        ("category.entertainment", "gamecontroller.fill", [
+            ("category.entertainment.movies", "film.fill"),
+            ("category.entertainment.games", "gamecontroller.fill"),
+            ("category.entertainment.travel", "airplane.departure"),
+            ("category.entertainment.sports", "figure.run"),
+            ("category.entertainment.music", "music.note"),
+            ("category.entertainment.social", "person.2.fill")
         ]),
-        ("Healthcare", "stethoscope", [
-            ("Clinic", "stethoscope"),
-            ("Medicine", "pills.fill"),
-            ("Checkup", "heart.text.square.fill"),
-            ("Dental", "mouth.fill"),
-            ("Wellness", "heart.circle.fill")
+        ("category.healthcare", "stethoscope", [
+            ("category.healthcare.clinic", "stethoscope"),
+            ("category.healthcare.medicine", "pills.fill"),
+            ("category.healthcare.checkup", "heart.text.square.fill"),
+            ("category.healthcare.dental", "mouth.fill"),
+            ("category.healthcare.wellness", "heart.circle.fill")
         ]),
-        ("Education", "book.fill", [
-            ("Training", "graduationcap.fill"),
-            ("Books", "book.fill"),
-            ("Courses", "character.book.fill"),
-            ("Exams", "doc.text.fill"),
-            ("Stationery", "pencil")
+        ("category.education", "book.fill", [
+            ("category.education.training", "graduationcap.fill"),
+            ("category.education.books", "book.fill"),
+            ("category.education.courses", "character.book.fill"),
+            ("category.education.exams", "doc.text.fill"),
+            ("category.education.stationery", "pencil")
         ]),
-        ("Telecom", "phone.fill", [
-            ("Phone Bill", "phone.fill"),
-            ("Internet", "wifi"),
-            ("Membership", "person.crop.circle.fill"),
-            ("Delivery", "shippingbox.fill")
+        ("category.telecom", "phone.fill", [
+            ("category.telecom.phoneBill", "phone.fill"),
+            ("category.telecom.internet", "wifi"),
+            ("category.telecom.membership", "person.crop.circle.fill"),
+            ("category.telecom.delivery", "shippingbox.fill")
         ]),
-        ("Social Gifts", "gift.fill", [
-            ("Red Envelope", "gift.fill"),
-            ("Cash Gift", "banknote.fill"),
-            ("Hosting", "wineglass.fill"),
-            ("Gifts", "heart.fill")
+        ("category.socialGifts", "gift.fill", [
+            ("category.socialGifts.redEnvelope", "gift.fill"),
+            ("category.socialGifts.cashGift", "banknote.fill"),
+            ("category.socialGifts.hosting", "wineglass.fill"),
+            ("category.socialGifts.gifts", "heart.fill")
         ]),
-        ("Pets", "pawprint.fill", [
-            ("Cat Food", "pawprint.fill"),
-            ("Dog Food", "pawprint.fill"),
-            ("Pet Healthcare", "stethoscope"),
-            ("Pet Supplies", "bag.fill")
+        ("category.pets", "pawprint.fill", [
+            ("category.pets.catFood", "pawprint.fill"),
+            ("category.pets.dogFood", "pawprint.fill"),
+            ("category.pets.petHealthcare", "stethoscope"),
+            ("category.pets.petSupplies", "bag.fill")
         ]),
     ]
 
-    static let defaultIncomeCategories: [(name: String, icon: String, children: [(String, String)])] = [
-        ("Salary", "banknote.fill", [
-            ("Monthly", "banknote.fill"),
-            ("Bonus", "gift.fill"),
-            ("Overtime", "clock.fill"),
-            ("Year-end Bonus", "star.fill")
+    static let defaultIncomeCategories: [(nameKey: String, icon: String, children: [(String, String)])] = [
+        ("category.salary", "banknote.fill", [
+            ("category.salary.monthly", "banknote.fill"),
+            ("category.salary.bonus", "gift.fill"),
+            ("category.salary.overtime", "clock.fill"),
+            ("category.salary.yearEndBonus", "star.fill")
         ]),
-        ("Investment", "chart.line.uptrend.xyaxis", [
-            ("Stocks", "chart.line.uptrend.xyaxis"),
-            ("Funds", "chart.bar.fill"),
-            ("Interest", "percent"),
-            ("Wealth Mgmt", "coins")
+        ("category.investment", "chart.line.uptrend.xyaxis", [
+            ("category.investment.stocks", "chart.line.uptrend.xyaxis"),
+            ("category.investment.funds", "chart.bar.fill"),
+            ("category.investment.interest", "percent"),
+            ("category.investment.wealthMgmt", "coins")
         ]),
-        ("Side Job", "briefcase.fill", [
-            ("Freelance", "laptopcomputer.and.iphone"),
-            ("Consulting", "person.wave.2.fill"),
-            ("Royalties", "pencil.line")
+        ("category.sideJob", "briefcase.fill", [
+            ("category.sideJob.freelance", "laptopcomputer.and.iphone"),
+            ("category.sideJob.consulting", "person.wave.2.fill"),
+            ("category.sideJob.royalties", "pencil.line")
         ]),
-        ("Other Income", "plus.circle.fill", [
-            ("Red Envelope", "gift.fill"),
-            ("Refund", "arrow.uturn.backward.circle.fill"),
-            ("Reimbursement", "doc.text.fill"),
-            ("Lottery", "star.circle.fill")
+        ("category.otherIncome", "plus.circle.fill", [
+            ("category.otherIncome.redEnvelope", "gift.fill"),
+            ("category.otherIncome.refund", "arrow.uturn.backward.circle.fill"),
+            ("category.otherIncome.reimbursement", "doc.text.fill"),
+            ("category.otherIncome.lottery", "star.circle.fill")
         ]),
     ]
 
@@ -138,7 +138,7 @@ extension Category {
         for parent in defaultExpenseCategories {
             let parentCategory = Category(context: context)
             parentCategory.id = UUID()
-            parentCategory.name = parent.name
+            parentCategory.name = LocalizationManager.localized(parent.nameKey)
             parentCategory.icon = parent.icon
             parentCategory.categoryType = .expense
             parentCategory.sortOrder = sortOrder
@@ -149,7 +149,7 @@ extension Category {
             for child in parent.children {
                 let childCategory = Category(context: context)
                 childCategory.id = UUID()
-                childCategory.name = child.0
+                childCategory.name = LocalizationManager.localized(child.0)
                 childCategory.icon = child.1
                 childCategory.categoryType = .expense
                 childCategory.parentId = parentCategory.id
@@ -163,7 +163,7 @@ extension Category {
         for parent in defaultIncomeCategories {
             let parentCategory = Category(context: context)
             parentCategory.id = UUID()
-            parentCategory.name = parent.name
+            parentCategory.name = LocalizationManager.localized(parent.nameKey)
             parentCategory.icon = parent.icon
             parentCategory.categoryType = .income
             parentCategory.sortOrder = sortOrder
@@ -174,7 +174,7 @@ extension Category {
             for child in parent.children {
                 let childCategory = Category(context: context)
                 childCategory.id = UUID()
-                childCategory.name = child.0
+                childCategory.name = LocalizationManager.localized(child.0)
                 childCategory.icon = child.1
                 childCategory.categoryType = .income
                 childCategory.parentId = parentCategory.id

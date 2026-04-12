@@ -4,6 +4,7 @@ import CoreData
 struct CategoryListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @StateObject private var categoryVM = CategoryViewModel()
 
     @State private var selectedType: CategoryType = .expense
@@ -59,7 +60,7 @@ struct CategoryListView: View {
                     }
                 }
             }
-            .navigationTitle("Categories")
+            .navigationTitle(loc["categories.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -91,8 +92,8 @@ struct CategoryListView: View {
                     CategorySortView(book: book, categoryType: selectedType)
                 }
             }
-            .alert("Error", isPresented: .constant(categoryVM.errorMessage != nil)) {
-                Button("OK") { categoryVM.errorMessage = nil }
+            .alert(loc["categories.error"], isPresented: .constant(categoryVM.errorMessage != nil)) {
+                Button(loc["categories.ok"]) { categoryVM.errorMessage = nil }
             } message: {
                 Text(categoryVM.errorMessage ?? "")
             }
@@ -101,9 +102,9 @@ struct CategoryListView: View {
 
     private var headerSection: some View {
         VStack(spacing: 0) {
-            Picker("Type", selection: $selectedType) {
-                Text("Expense").tag(CategoryType.expense)
-                Text("Income").tag(CategoryType.income)
+            Picker(loc["categories.type"], selection: $selectedType) {
+                Text(loc["categories.expense"]).tag(CategoryType.expense)
+                Text(loc["categories.income"]).tag(CategoryType.income)
             }
             .pickerStyle(.segmented)
             .padding(.horizontal, 16)
@@ -118,7 +119,7 @@ struct CategoryListView: View {
                 HStack(spacing: 0) {
                     statItem(
                         value: "\(topLevel.count)",
-                        label: "Top-level",
+                        label: loc["categories.topLevel"],
                         icon: "square.grid.2x2",
                         color: .accentColor
                     )
@@ -129,7 +130,7 @@ struct CategoryListView: View {
 
                     statItem(
                         value: "\(subLevel.count)",
-                        label: "Sub-level",
+                        label: loc["categories.subLevel"],
                         icon: "list.bullet",
                         color: .orange
                     )
@@ -140,7 +141,7 @@ struct CategoryListView: View {
 
                     statItem(
                         value: "\(categories.count)",
-                        label: "Total",
+                        label: loc["categories.total"],
                         icon: "tray.full",
                         color: .green
                     )
@@ -175,10 +176,10 @@ struct CategoryListView: View {
             Image(systemName: "folder.badge.plus")
                 .font(.system(size: 48))
                 .foregroundStyle(.tertiary)
-            Text("No categories")
+            Text(loc["categories.empty"])
                 .font(.headline)
                 .foregroundStyle(.secondary)
-            Text("Tap + to add a category")
+            Text(loc["categories.emptyHint"])
                 .font(.subheadline)
                 .foregroundStyle(.tertiary)
             Spacer()
@@ -202,7 +203,7 @@ struct CategoryListView: View {
                     .font(.body)
 
                 if category.isSystem {
-                    Text("Default")
+                    Text(loc["categories.default"])
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -218,13 +219,13 @@ struct CategoryListView: View {
                         newCategoryIcon = category.icon
                         showAddSheet = true
                     } label: {
-                        Label("Edit", systemImage: "pencil")
+                        Label(loc["categories.edit"], systemImage: "pencil")
                     }
 
                     Button(role: .destructive) {
                         _ = categoryVM.deleteCategory(category)
                     } label: {
-                        Label("Delete", systemImage: "trash")
+                        Label(loc["categories.delete"], systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -240,12 +241,12 @@ struct CategoryListView: View {
     private func categoryEditSheet() -> some View {
         VStack(spacing: 0) {
             HStack {
-                Button("Cancel") { showAddSheet = false }
+                Button(loc["categories.cancel"]) { showAddSheet = false }
                 Spacer()
-                Text(editingCategory == nil ? "Add Category" : "Edit Category")
+                Text(editingCategory == nil ? loc["categories.addCategory"] : loc["categories.editCategory"])
                     .font(.headline)
                 Spacer()
-                Button(editingCategory == nil ? "Add" : "Save") {
+                Button(editingCategory == nil ? loc["categories.add"] : loc["categories.save"]) {
                     saveCategory()
                 }
                 .disabled(newCategoryName.isEmpty)
@@ -256,13 +257,13 @@ struct CategoryListView: View {
 
             Divider()
 
-            TextField("Category name", text: $newCategoryName)
+            TextField(loc["categories.categoryName"], text: $newCategoryName)
                 .textFieldStyle(.roundedBorder)
                 .focused($isEditNameFocused)
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
 
-            Text("Choose Icon")
+            Text(loc["categories.chooseIcon"])
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundStyle(.secondary)

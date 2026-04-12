@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct LedgerlyApp: App {
     @StateObject private var bookVM = BookViewModel()
+    @StateObject private var locManager = LocalizationManager()
 
     init() {
         PersistenceController.shared.seedDemoDataIfNeeded()
@@ -13,6 +14,7 @@ struct LedgerlyApp: App {
             ContentView()
                 .environment(\.managedObjectContext, PersistenceController.shared.viewContext)
                 .environmentObject(bookVM)
+                .environmentObject(locManager)
                 .task {
                     ServiceLocator.shared.persistenceController = PersistenceController.shared
                     _ = await NotificationService.shared.requestAuthorization()

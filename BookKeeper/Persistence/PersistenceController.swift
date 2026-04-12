@@ -74,15 +74,15 @@ class PersistenceController {
 
         let context = viewContext
 
-        let personalBook = Book.create(in: context, name: "Daily Expenses", icon: "house", type: .personal)
+        let personalBook = Book.create(in: context, name: LocalizationManager.localized("demo.dailyExpenses"), icon: "house", type: .personal)
         Category.createDefaultCategories(for: personalBook, in: context)
-        let owner1 = Member.create(in: context, name: "Me", book: personalBook, role: .owner)
+        let owner1 = Member.create(in: context, name: LocalizationManager.localized("demo.me"), book: personalBook, role: .owner)
 
-        let sharedBook = Book.create(in: context, name: "Family Ledger", icon: "house.fill", type: .shared)
+        let sharedBook = Book.create(in: context, name: LocalizationManager.localized("demo.familyLedger"), icon: "house.fill", type: .shared)
         Category.createDefaultCategories(for: sharedBook, in: context)
-        let owner2 = Member.create(in: context, name: "Me", book: sharedBook, role: .owner)
-        let spouse = Member.create(in: context, name: "Partner", book: sharedBook, role: .editor)
-        let _ = Member.create(in: context, name: "Mom", book: sharedBook, role: .viewer)
+        let owner2 = Member.create(in: context, name: LocalizationManager.localized("demo.me"), book: sharedBook, role: .owner)
+        let spouse = Member.create(in: context, name: LocalizationManager.localized("demo.partner"), book: sharedBook, role: .editor)
+        let _ = Member.create(in: context, name: LocalizationManager.localized("demo.mom"), book: sharedBook, role: .viewer)
 
         let personalCategories = (personalBook.categories?.allObjects as? [Category] ?? [])
             .filter { $0.isTopLevel && $0.categoryType == .expense }
@@ -104,22 +104,22 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 15...40)),
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Breakfast", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.breakfast"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 30...60)),
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Lunch", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.lunch"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 40...100)),
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Dinner", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.dinner"), date: date
                 )
             }
 
             if dayOffset % 7 < 2, let cat = personalCategories[safe: 1] {
-                let notes = ["Bus", "Metro", "Taxi"]
+                let notes = [LocalizationManager.localized("demo.bus"), LocalizationManager.localized("demo.metro"), LocalizationManager.localized("demo.taxi")]
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 5...50)),
                     type: .expense, category: cat, book: personalBook,
@@ -128,7 +128,7 @@ class PersistenceController {
             }
 
             if Int.random(in: 0...6) < 2, let cat = personalCategories[safe: 2] {
-                let notes = ["Grocery", "Daily necessities", "Clothes"]
+                let notes = [LocalizationManager.localized("demo.grocery"), LocalizationManager.localized("demo.dailyNecessities"), LocalizationManager.localized("demo.clothes")]
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 30...300)),
                     type: .expense, category: cat, book: personalBook,
@@ -137,7 +137,7 @@ class PersistenceController {
             }
 
             if Int.random(in: 0...13) < 2, let cat = personalCategories[safe: 4] {
-                let notes = ["Movie", "Game", "Party"]
+                let notes = [LocalizationManager.localized("demo.movie"), LocalizationManager.localized("demo.game"), LocalizationManager.localized("demo.party")]
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 30...200)),
                     type: .expense, category: cat, book: personalBook,
@@ -149,12 +149,12 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: 3200,
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Rent", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.rent"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 80...200)),
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Utilities", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.utilities"), date: date
                 )
             }
 
@@ -162,7 +162,7 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: 128,
                     type: .expense, category: cat, book: personalBook,
-                    member: owner1, note: "Phone bill", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.phoneBill"), date: date
                 )
             }
 
@@ -170,7 +170,7 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: 12000,
                     type: .income, category: cat, book: personalBook,
-                    member: owner1, note: "Salary", date: date
+                    member: owner1, note: LocalizationManager.localized("demo.salary"), date: date
                 )
             }
         }
@@ -183,17 +183,17 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 15...40)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: owner2, note: "Breakfast", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.breakfast"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 30...60)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: owner2, note: "Lunch", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.lunch"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 50...120)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: owner2, note: "Family dinner", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.familyDinner"), date: date
                 )
             }
 
@@ -201,7 +201,7 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 15...40)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: spouse, note: "Breakfast", date: date
+                    member: spouse, note: LocalizationManager.localized("demo.breakfast"), date: date
                 )
             }
 
@@ -209,12 +209,12 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 30...60)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: spouse, note: "Lunch", date: date
+                    member: spouse, note: LocalizationManager.localized("demo.lunch"), date: date
                 )
             }
 
             if dayOffset % 7 < 2, let cat = sharedCategories[safe: 1] {
-                let notes = ["Bus", "Metro", "Taxi", "Gas"]
+                let notes = [LocalizationManager.localized("demo.bus"), LocalizationManager.localized("demo.metro"), LocalizationManager.localized("demo.taxi"), LocalizationManager.localized("demo.gas")]
                 let member = Int.random(in: 0...1) == 0 ? owner2 : spouse
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 5...60)),
@@ -224,7 +224,7 @@ class PersistenceController {
             }
 
             if Int.random(in: 0...6) < 2, let cat = sharedCategories[safe: 2] {
-                let notes = ["Grocery shopping", "Daily necessities", "Household items"]
+                let notes = [LocalizationManager.localized("demo.groceryShopping"), LocalizationManager.localized("demo.dailyNecessities"), LocalizationManager.localized("demo.householdItems")]
                 let member = Int.random(in: 0...1) == 0 ? owner2 : spouse
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 50...400)),
@@ -237,12 +237,12 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: 4500,
                     type: .expense, category: cat, book: sharedBook,
-                    member: owner2, note: "Rent", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.rent"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: Decimal(Int.random(in: 100...300)),
                     type: .expense, category: cat, book: sharedBook,
-                    member: owner2, note: "Utility bills", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.utilityBills"), date: date
                 )
             }
 
@@ -250,12 +250,12 @@ class PersistenceController {
                 let _ = Transaction.create(
                     in: context, amount: 15000,
                     type: .income, category: cat, book: sharedBook,
-                    member: owner2, note: "Salary", date: date
+                    member: owner2, note: LocalizationManager.localized("demo.salary"), date: date
                 )
                 let _ = Transaction.create(
                     in: context, amount: 12000,
                     type: .income, category: cat, book: sharedBook,
-                    member: spouse, note: "Salary", date: date
+                    member: spouse, note: LocalizationManager.localized("demo.salary"), date: date
                 )
             }
         }

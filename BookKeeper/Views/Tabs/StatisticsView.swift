@@ -3,6 +3,7 @@ import Charts
 
 struct StatisticsView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @StateObject private var statsVM = StatisticsViewModel()
 
     @State private var selectedTopCategory: Category? = nil
@@ -29,7 +30,7 @@ struct StatisticsView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Stats")
+            .navigationTitle(loc["stats.title"])
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $selectedTopCategory) { category in
                 if let book = bookVM.currentBook {
@@ -82,11 +83,11 @@ struct StatisticsView: View {
             }
 
             VStack(spacing: 8) {
-                Text("No ledger data yet")
+                Text(loc["stats.noData"])
                     .font(.title3)
                     .fontWeight(.semibold)
 
-                Text("Create a ledger and start recording your finances\nEvery entry is the first step to financial management")
+                Text(loc["stats.noDataDesc"])
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -97,9 +98,9 @@ struct StatisticsView: View {
 
     private var periodPicker: some View {
         VStack(spacing: 8) {
-            Picker("Period", selection: $statsVM.selectedPeriod) {
+            Picker(loc["stats.period"], selection: $statsVM.selectedPeriod) {
                 ForEach(StatisticsViewModel.TimePeriod.allCases, id: \.self) { period in
-                    Text(period.rawValue).tag(period)
+                    Text(loc["stats.\(period.rawValue.lowercased())"]).tag(period)
                 }
             }
             .pickerStyle(.segmented)
@@ -130,9 +131,9 @@ struct StatisticsView: View {
 
     private var summarySection: some View {
         HStack(spacing: 12) {
-            SummaryCard(title: "Expense", amount: statsVM.totalExpense, color: .red, icon: "arrowtriangle.down.fill", gradient: Color.expenseGradient)
-            SummaryCard(title: "Income", amount: statsVM.totalIncome, color: .green, icon: "arrowtriangle.up.fill", gradient: Color.incomeGradient)
-            SummaryCard(title: "Balance", amount: statsVM.totalBalance, color: .blue, icon: "equal", gradient: Color.balanceGradient)
+            SummaryCard(title: loc["bills.expense"], amount: statsVM.totalExpense, color: .red, icon: "arrowtriangle.down.fill", gradient: Color.expenseGradient)
+            SummaryCard(title: loc["bills.income"], amount: statsVM.totalIncome, color: .green, icon: "arrowtriangle.up.fill", gradient: Color.incomeGradient)
+            SummaryCard(title: loc["bills.balance"], amount: statsVM.totalBalance, color: .blue, icon: "equal", gradient: Color.balanceGradient)
         }
     }
 
@@ -140,11 +141,11 @@ struct StatisticsView: View {
         let data = statsVM.trendData
 
         return VStack(alignment: .leading, spacing: 8) {
-            Text("Trend")
+            Text(loc["stats.trend"])
                 .font(.headline)
 
             if data.isEmpty {
-                Text("No data")
+                Text(loc["stats.noChartData"])
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 200)
             } else {
@@ -155,16 +156,16 @@ struct StatisticsView: View {
                         let balD = incD - expD
 
                         LineMark(
-                            x: .value("Date", point.date),
-                            y: .value("Expense", expD)
+                            x: .value(loc["stats.date"], point.date),
+                            y: .value(loc["bills.expense"], expD)
                         )
                         .foregroundStyle(Color.red)
                         .interpolationMethod(.catmullRom)
                         .lineStyle(StrokeStyle(lineWidth: 2))
 
                         AreaMark(
-                            x: .value("Date", point.date),
-                            y: .value("Expense", expD)
+                            x: .value(loc["stats.date"], point.date),
+                            y: .value(loc["bills.expense"], expD)
                         )
                         .foregroundStyle(
                             LinearGradient(
@@ -176,16 +177,16 @@ struct StatisticsView: View {
                         .interpolationMethod(.catmullRom)
 
                         LineMark(
-                            x: .value("Date", point.date),
-                            y: .value("Income", incD)
+                            x: .value(loc["stats.date"], point.date),
+                            y: .value(loc["bills.income"], incD)
                         )
                         .foregroundStyle(Color.green)
                         .interpolationMethod(.catmullRom)
                         .lineStyle(StrokeStyle(lineWidth: 2))
 
                         AreaMark(
-                            x: .value("Date", point.date),
-                            y: .value("Income", incD)
+                            x: .value(loc["stats.date"], point.date),
+                            y: .value(loc["bills.income"], incD)
                         )
                         .foregroundStyle(
                             LinearGradient(
@@ -197,8 +198,8 @@ struct StatisticsView: View {
                         .interpolationMethod(.catmullRom)
 
                         BarMark(
-                            x: .value("Date", point.date),
-                            y: .value("Balance", balD)
+                            x: .value(loc["stats.date"], point.date),
+                            y: .value(loc["bills.balance"], balD)
                         )
                         .foregroundStyle(balD >= 0 ? Color.blue.opacity(0.2) : Color.orange.opacity(0.2))
                         .cornerRadius(2)
@@ -212,7 +213,7 @@ struct StatisticsView: View {
                         RoundedRectangle(cornerRadius: 1)
                             .fill(Color.red)
                             .frame(width: 16, height: 3)
-                        Text("Expense")
+                        Text(loc["bills.expense"])
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     }
@@ -220,7 +221,7 @@ struct StatisticsView: View {
                         RoundedRectangle(cornerRadius: 1)
                             .fill(Color.green)
                             .frame(width: 16, height: 3)
-                        Text("Income")
+                        Text(loc["bills.income"])
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -228,7 +229,7 @@ struct StatisticsView: View {
                         RoundedRectangle(cornerRadius: 1)
                             .fill(Color.blue.opacity(0.4))
                             .frame(width: 12, height: 8)
-                        Text("Balance")
+                        Text(loc["bills.balance"])
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -244,17 +245,17 @@ struct StatisticsView: View {
         let categoryData = statsVM.expenseByCategory
 
         return VStack(alignment: .leading, spacing: 8) {
-            Text("By Category")
+            Text(loc["stats.byCategory"])
                 .font(.headline)
 
             if categoryData.isEmpty {
-                Text("No data")
+                Text(loc["stats.noChartData"])
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 200)
             } else {
                 Chart(categoryData, id: \.0.id) { category, amount in
                     SectorMark(
-                        angle: .value("Amount", Double(truncating: NSDecimalNumber(decimal: amount))),
+                        angle: .value(loc["stats.amount"], Double(truncating: NSDecimalNumber(decimal: amount))),
                         innerRadius: .ratio(0.5),
                         angularInset: 1.5
                     )
@@ -335,11 +336,11 @@ struct StatisticsView: View {
         let memberData = statsVM.expenseByMember
 
         return VStack(alignment: .leading, spacing: 8) {
-            Text("Member Spending")
+            Text(loc["stats.memberSpending"])
                 .font(.headline)
 
             if memberData.isEmpty {
-                Text("No data")
+                Text(loc["stats.noChartData"])
                     .foregroundStyle(.secondary)
             } else {
                 Chart(memberData, id: \.0.id) { member, amount in
@@ -347,8 +348,8 @@ struct StatisticsView: View {
                     let barColor = Color.categoryColor(for: colorIndex)
 
                     BarMark(
-                        x: .value("Member", member.name),
-                        y: .value("Amount", Double(truncating: NSDecimalNumber(decimal: amount)))
+                        x: .value(loc["stats.member"], member.name),
+                        y: .value(loc["stats.amount"], Double(truncating: NSDecimalNumber(decimal: amount)))
                     )
                     .foregroundStyle(
                         LinearGradient(
@@ -373,6 +374,7 @@ struct CategoryDetailView: View {
     let category: Category
     let book: Book
     @ObservedObject var statsVM: StatisticsViewModel
+    @EnvironmentObject var loc: LocalizationManager
 
     @Environment(\.dismiss) private var dismiss
 
@@ -389,7 +391,7 @@ struct CategoryDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") { dismiss() }
+                    Button(loc["stats.close"]) { dismiss() }
                 }
             }
         }
@@ -401,13 +403,13 @@ struct CategoryDetailView: View {
 
         if !subCategories.isEmpty {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Subcategories")
+                Text(loc["stats.subcategories"])
                     .font(.headline)
 
                 Chart(subCategories, id: \.0.id) { subCategory, amount in
                     BarMark(
-                        x: .value("Amount", Double(truncating: NSDecimalNumber(decimal: amount))),
-                        y: .value("Category", subCategory.name)
+                        x: .value(loc["stats.amount"], Double(truncating: NSDecimalNumber(decimal: amount))),
+                        y: .value(loc["stats.category"], subCategory.name)
                     )
                     .foregroundStyle(Color.categoryColor(for: subCategories.firstIndex(where: { $0.0.id == subCategory.id }) ?? 0))
                     .cornerRadius(4)
@@ -445,11 +447,11 @@ struct CategoryDetailView: View {
         let transactions = statsVM.transactions(by: category)
 
         VStack(alignment: .leading, spacing: 8) {
-            Text("Transactions")
+            Text(loc["stats.transactions"])
                 .font(.headline)
 
             if transactions.isEmpty {
-                Text("No records")
+                Text(loc["stats.noRecords"])
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(transactions, id: \.id) { transaction in
@@ -464,6 +466,7 @@ struct CategoryDetailView: View {
 }
 
 struct SummaryCard: View {
+    @EnvironmentObject var loc: LocalizationManager
     let title: String
     let amount: Decimal
     let color: Color

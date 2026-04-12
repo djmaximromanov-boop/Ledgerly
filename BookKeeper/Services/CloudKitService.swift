@@ -44,7 +44,8 @@ actor CloudKitService {
 
     func createShare(for rootRecord: CKRecord, in zone: CKRecordZone) async throws -> CKShare {
         let share = CKShare(recordZoneID: zone.zoneID)
-        share[CKShare.SystemFieldKey.title] = (rootRecord["name"] as? String ?? "Shared Ledger") as CKRecordValue
+        let fallbackTitle = LocalizationManager.localized("service.sharedLedger")
+        share[CKShare.SystemFieldKey.title] = (rootRecord["name"] as? String ?? fallbackTitle) as CKRecordValue
         share[CKShare.SystemFieldKey.shareType] = "com.bookkeeper.shared-book" as CKRecordValue
         share.publicPermission = .readOnly
 

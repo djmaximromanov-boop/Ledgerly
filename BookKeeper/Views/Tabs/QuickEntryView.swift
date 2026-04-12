@@ -2,6 +2,7 @@ import SwiftUI
 
 struct QuickEntryView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @StateObject private var transactionVM = TransactionViewModel()
 
     @State private var showAddCategorySheet = false
@@ -41,7 +42,7 @@ struct QuickEntryView: View {
                     )
                 } else {
                     Spacer()
-                    Text("Please create a ledger first")
+                    Text(loc["quickEntry.noLedger"])
                         .foregroundStyle(.secondary)
                     Spacer()
                 }
@@ -60,13 +61,13 @@ struct QuickEntryView: View {
                         .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
-            .navigationTitle("Record")
+            .navigationTitle(loc["quickEntry.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         DatePicker(
-                            "Date",
+                            loc["quickEntry.date"],
                             selection: $transactionVM.date,
                             displayedComponents: .date
                         )
@@ -75,13 +76,13 @@ struct QuickEntryView: View {
                         NavigationLink {
                             CategoryListView()
                         } label: {
-                            Label("Categories", systemImage: "folder")
+                            Label(loc["quickEntry.categories"], systemImage: "folder")
                         }
 
                         NavigationLink {
                             NoteInputView(note: $transactionVM.note)
                         } label: {
-                            Label("Note", systemImage: "pencil")
+                            Label(loc["quickEntry.note"], systemImage: "pencil")
                         }
                     } label: {
                         Image(systemName: "ellipsis.circle")
@@ -159,7 +160,7 @@ struct QuickEntryView: View {
                                 Text(book.name)
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(.white)
-                                Text(book.bookType == .personal ? "Personal" : "Shared")
+                                Text(book.bookType == .personal ? loc["quickEntry.personal"] : loc["quickEntry.shared"])
                                     .font(.system(size: 10))
                                     .foregroundStyle(.white.opacity(0.6))
                             }
@@ -176,13 +177,13 @@ struct QuickEntryView: View {
                 Spacer()
 
                 HStack(spacing: 0) {
-                    typeButton(title: "Expense", isSelected: transactionVM.selectedType == .expense) {
+                    typeButton(title: loc["quickEntry.expense"], isSelected: transactionVM.selectedType == .expense) {
                         withAnimation(.easeInOut(duration: 0.25)) {
                             transactionVM.selectedType = .expense
                         }
                     }
 
-                    typeButton(title: "Income", isSelected: transactionVM.selectedType == .income) {
+                    typeButton(title: loc["quickEntry.income"], isSelected: transactionVM.selectedType == .income) {
                         withAnimation(.easeInOut(duration: 0.25)) {
                             transactionVM.selectedType = .income
                         }
@@ -290,7 +291,7 @@ struct QuickEntryView: View {
             let generator = UIImpactFeedbackGenerator(style: .light)
             generator.impactOccurred()
 
-            toastMessage = "Saved ¥\(savedAmount)"
+            toastMessage = String(format: loc["quickEntry.saved"], "¥\(savedAmount)")
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 showToast = true
             }
@@ -306,19 +307,20 @@ struct QuickEntryView: View {
 struct NoteInputView: View {
     @Binding var note: String
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var loc: LocalizationManager
 
     var body: some View {
         Form {
             Section {
-                TextField("Add a note...", text: $note)
+                TextField(loc["quickEntry.notePlaceholder"], text: $note)
                     .font(.body)
             }
         }
-        .navigationTitle("Note")
+        .navigationTitle(loc["quickEntry.note"])
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Done") { dismiss() }
+                Button(loc["quickEntry.done"]) { dismiss() }
             }
         }
     }

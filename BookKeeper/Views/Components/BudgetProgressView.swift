@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct BudgetProgressView: View {
+    @EnvironmentObject var loc: LocalizationManager
     let budget: Budget
     let spent: Decimal
     let total: Decimal
@@ -97,7 +98,7 @@ struct BudgetProgressView: View {
                     .font(.caption)
                     .foregroundStyle(.red)
             } else {
-                Text("Remaining \((total - spent).currencyString)")
+                Text(loc["budget.remaining"] + " \((total - spent).currencyString)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

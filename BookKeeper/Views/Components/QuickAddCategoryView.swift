@@ -2,6 +2,7 @@ import SwiftUI
 import CoreData
 
 struct QuickAddCategoryView: View {
+    @EnvironmentObject var loc: LocalizationManager
     let book: Book
     let categoryType: CategoryType
     let parentCategory: Category?
@@ -43,10 +44,10 @@ struct QuickAddCategoryView: View {
             HStack {
                 Button("Cancel") { dismiss() }
                 Spacer()
-                Text(parentCategory == nil ? "Add Category" : "Add Subcategory")
+                Text(parentCategory == nil ? loc["categories.addCategory"] : loc["categories.addSubcategory"])
                     .font(.headline)
                 Spacer()
-                Button("Add") {
+                Button(loc["categories.add"]) {
                     if categoryVM.addCategory(
                         name: name,
                         icon: icon,
@@ -76,7 +77,7 @@ struct QuickAddCategoryView: View {
                     Image(systemName: parent.icon)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                    Text("Parent: \(parent.name)")
+                    Text(loc["categories.parent"] + ": \(parent.name)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -123,8 +124,8 @@ struct QuickAddCategoryView: View {
                 isNameFocused = true
             }
         }
-        .alert("Error", isPresented: .constant(categoryVM.errorMessage != nil)) {
-            Button("OK") { categoryVM.errorMessage = nil }
+        .alert(loc["categories.error"], isPresented: .constant(categoryVM.errorMessage != nil)) {
+            Button(loc["categories.ok"]) { categoryVM.errorMessage = nil }
         } message: {
             Text(categoryVM.errorMessage ?? "")
         }

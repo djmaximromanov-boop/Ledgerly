@@ -3,42 +3,49 @@ import SwiftUI
 struct SettingsView: View {
     @AppStorage("currency") private var currency = "CNY"
     @AppStorage("defaultBookId") private var defaultBookId = ""
+    @EnvironmentObject var loc: LocalizationManager
 
     var body: some View {
         NavigationStack {
             Form {
-                Section("General") {
-                    Picker("Currency", selection: $currency) {
-                        Text("CNY (¥)").tag("CNY")
-                        Text("USD ($)").tag("USD")
-                        Text("EUR (€)").tag("EUR")
-                        Text("JPY (¥)").tag("JPY")
+                Section(loc["settings.general"]) {
+                    Picker(loc["settings.currency"], selection: $currency) {
+                        Text(loc["settings.cny"]).tag("CNY")
+                        Text(loc["settings.usd"]).tag("USD")
+                        Text(loc["settings.eur"]).tag("EUR")
+                        Text(loc["settings.jpy"]).tag("JPY")
+                    }
+
+                    Picker(loc["settings.language"], selection: $loc.language) {
+                        ForEach(Language.allCases, id: \.self) { lang in
+                            Text(lang.nativeDisplayName).tag(lang)
+                        }
                     }
                 }
 
-                Section("Data") {
+                Section(loc["settings.data"]) {
                     NavigationLink {
                         CategoryListView()
                     } label: {
-                        Label("Categories", systemImage: "folder")
+                        Label(loc["settings.categories"], systemImage: "folder")
                     }
 
                     NavigationLink {
                         DataExportView()
                     } label: {
-                        Label("Export Data", systemImage: "square.and.arrow.up")
+                        Label(loc["settings.exportData"], systemImage: "square.and.arrow.up")
                     }
 
                     NavigationLink {
                         DataManageView()
                     } label: {
-                        Label("Data Management", systemImage: "externaldrive")
+                        Label(loc["settings.dataManagement"], systemImage: "externaldrive")
                     }
                 }
 
-                Section("About") {
+                Section(loc["settings.about"]) {
                     HStack {
-                        Text("Version")
+                        Text(loc["settings.version"])
                         Spacer()
                         Text("1.0.0")
                             .foregroundStyle(.secondary)
@@ -46,7 +53,7 @@ struct SettingsView: View {
 
                     Link(destination: URL(string: "https://github.com")!) {
                         HStack {
-                            Text("Privacy Policy")
+                            Text(loc["settings.privacyPolicy"])
                             Spacer()
                             Image(systemName: "arrow.up.right.square")
                                 .foregroundStyle(.secondary)
@@ -54,13 +61,14 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(loc["settings.title"])
         }
     }
 }
 
 struct DataExportView: View {
     @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
     @State private var exportText = ""
     @State private var showShareSheet = false
 
@@ -68,19 +76,19 @@ struct DataExportView: View {
         List {
             if let book = bookVM.currentBook {
                 Section {
-                    Button("Export as CSV") {
+                    Button(loc["settings.exportCSV"]) {
                         exportCSV(for: book)
                         showShareSheet = true
                     }
 
-                    Button("Export as JSON") {
+                    Button(loc["settings.exportJSON"]) {
                         exportJSON(for: book)
                         showShareSheet = true
                     }
                 }
 
                 if !exportText.isEmpty {
-                    Section("Preview") {
+                    Section(loc["settings.preview"]) {
                         Text(exportText)
                             .font(.caption)
                             .monospaced()
@@ -88,7 +96,7 @@ struct DataExportView: View {
                 }
             }
         }
-        .navigationTitle("Export Data")
+        .navigationTitle(loc["settings.exportData"])
         .sheet(isPresented: $showShareSheet) {
             if let data = exportText.data(using: .utf8) {
                 ShareSheet(items: [data])
@@ -100,9 +108,9 @@ struct DataExportView: View {
         let transactions = (book.transactions?.allObjects as? [Transaction]) ?? []
             .sorted { $0.date > $1.date }
 
-        var csv = "Date,Type,Category,Amount,Note\n"
+        var csv = "\(loc["stats.date"]),\(loc["categories.type"]),\(loc["stats.category"]),\(loc["ledgers.amount"]),\(loc["quickEntry.note"])\n"
         for t in transactions {
-            let type = t.transactionType == .expense ? "Expense" : "Income"
+            let type = t.transactionType == .expense ? loc["categories.expense"] : loc["categories.income"]
             let category = t.category?.name ?? ""
             let amount = (t.amount as Decimal).currencyString
             let note = t.note ?? ""
@@ -133,14 +141,16 @@ struct DataExportView: View {
 }
 
 struct DataManageView: View {
+    @EnvironmentObject var loc: LocalizationManager
+
     var body: some View {
         List {
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("iCloud Sync")
+                    Text(loc["settings.iCloudSync"])
                         .font(.subheadline)
                         .fontWeight(.medium)
-                    Text("Data syncs automatically to iCloud, keeping consistent across devices")
+                    Text(loc["settings.iCloudSyncDesc"])
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -148,16 +158,16 @@ struct DataManageView: View {
 
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Data Security")
+                    Text(loc["settings.dataSecurity"])
                         .font(.subheadline)
                         .fontWeight(.medium)
-                    Text("All data is stored only in your iCloud account and never uploaded to any third-party servers")
+                    Text(loc["settings.dataSecurityDesc"])
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
         }
-        .navigationTitle("Data Management")
+        .navigationTitle(loc["settings.dataManagement"])
     }
 }
 
@@ -170,4 +180,3 @@ struct ShareSheet: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
-

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MemberListView: View {
     let book: Book
+    @EnvironmentObject var loc: LocalizationManager
     @State private var showAddMember = false
     @State private var showInviteSheet = false
     @State private var newMemberName = ""
@@ -26,7 +27,7 @@ struct MemberListView: View {
                 }
             } header: {
                 if book.bookType == .shared {
-                    Text("\(members.count) members")
+                    Text(String(format: loc["members.count"], members.count))
                 }
             }
 
@@ -35,16 +36,16 @@ struct MemberListView: View {
                     Button {
                         showInviteSheet = true
                     } label: {
-                        Label("Invite Member", systemImage: "person.badge.plus")
+                        Label(loc["members.inviteMember"], systemImage: "person.badge.plus")
                     }
 
                     NavigationLink {
                         ShareBookView(book: book)
                     } label: {
-                        Label("Share via iCloud", systemImage: "icloud.and.arrow.up")
+                        Label(loc["members.shareViaICloud"], systemImage: "icloud.and.arrow.up")
                     }
                 } header: {
-                    Text("Invite")
+                    Text(loc["members.invite"])
                 }
             }
 
@@ -52,47 +53,47 @@ struct MemberListView: View {
                 Button {
                     showAddMember = true
                 } label: {
-                    Label("Add Local Member", systemImage: "plus.circle")
+                    Label(loc["members.addLocalMember"], systemImage: "plus.circle")
                 }
             } header: {
-                Text("Manual Add")
+                Text(loc["members.manualAdd"])
             }
         }
-        .navigationTitle("Members")
-        .alert("Add Member", isPresented: $showAddMember) {
-            TextField("Member name", text: $newMemberName)
-            Picker("Role", selection: $newMemberRole) {
-                Text("Editor").tag(MemberRole.editor)
-                Text("Viewer").tag(MemberRole.viewer)
+        .navigationTitle(loc["members.title"])
+        .alert(loc["members.addMember"], isPresented: $showAddMember) {
+            TextField(loc["members.memberName"], text: $newMemberName)
+            Picker(loc["members.role"], selection: $newMemberRole) {
+                Text(loc["members.editor"]).tag(MemberRole.editor)
+                Text(loc["members.viewer"]).tag(MemberRole.viewer)
             }
-            Button("Cancel", role: .cancel) { newMemberName = "" }
-            Button("Add") { addMember() }
+            Button(loc["members.cancel"], role: .cancel) { newMemberName = "" }
+            Button(loc["members.add"]) { addMember() }
                 .disabled(newMemberName.isEmpty)
         } message: {
-            Text("Enter the new member's name")
+            Text(loc["members.enterName"])
         }
-        .alert("Invite Member", isPresented: $showInviteSheet) {
-            TextField("Member name", text: $newMemberName)
-            Picker("Role", selection: $newMemberRole) {
-                Text("Editor · Can record").tag(MemberRole.editor)
-                Text("Viewer · Read only").tag(MemberRole.viewer)
+        .alert(loc["members.inviteMember"], isPresented: $showInviteSheet) {
+            TextField(loc["members.memberName"], text: $newMemberName)
+            Picker(loc["members.role"], selection: $newMemberRole) {
+                Text(loc["members.editorCanRecord"]).tag(MemberRole.editor)
+                Text(loc["members.viewerReadOnly"]).tag(MemberRole.viewer)
             }
-            Button("Cancel", role: .cancel) { newMemberName = "" }
-            Button("Invite") { addMember() }
+            Button(loc["members.cancel"], role: .cancel) { newMemberName = "" }
+            Button(loc["members.inviteMember"]) { addMember() }
                 .disabled(newMemberName.isEmpty)
         } message: {
-            Text("Enter the member name to invite. After adding, sync via iCloud sharing.")
+            Text(loc["members.inviteDesc"])
         }
-        .alert("Confirm Delete", isPresented: $showDeleteConfirm) {
-            Button("Cancel", role: .cancel) { memberToDelete = nil }
-            Button("Delete", role: .destructive) {
+        .alert(loc["members.confirmDelete"], isPresented: $showDeleteConfirm) {
+            Button(loc["members.cancel"], role: .cancel) { memberToDelete = nil }
+            Button(loc["members.delete"], role: .destructive) {
                 if let member = memberToDelete {
                     deleteMember(member)
                 }
             }
         } message: {
             if let member = memberToDelete {
-                Text("Are you sure you want to delete member「\(member.name)」? Associated records will be kept.")
+                Text(String(format: loc["members.deleteConfirm"], member.name))
             }
         }
     }
@@ -127,7 +128,7 @@ struct MemberListView: View {
             Spacer()
 
             if member.memberRole == .owner {
-                Text("Owner")
+                Text(loc["members.owner"])
                     .font(.caption2)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
@@ -155,12 +156,12 @@ struct MemberListView: View {
         Button {
             updateRole(member, to: .editor)
         } label: {
-            Label("Editor", systemImage: member.memberRole == .editor ? "checkmark" : "")
+            Label(loc["members.editor"], systemImage: member.memberRole == .editor ? "checkmark" : "")
         }
         Button {
             updateRole(member, to: .viewer)
         } label: {
-            Label("Viewer", systemImage: member.memberRole == .viewer ? "checkmark" : "")
+            Label(loc["members.viewer"], systemImage: member.memberRole == .viewer ? "checkmark" : "")
         }
     }
 
@@ -170,15 +171,15 @@ struct MemberListView: View {
             memberToDelete = member
             showDeleteConfirm = true
         } label: {
-            Label("Delete Member", systemImage: "trash")
+            Label(loc["members.deleteMember"], systemImage: "trash")
         }
     }
 
     private func roleText(for role: MemberRole) -> String {
         switch role {
-        case .owner: return "Owner · Can manage members"
-        case .editor: return "Editor · Can record"
-        case .viewer: return "Viewer · Read only"
+        case .owner: return loc["members.ownerCanManage"]
+        case .editor: return loc["members.editorCanRecord"]
+        case .viewer: return loc["members.viewerReadOnly"]
         }
     }
 

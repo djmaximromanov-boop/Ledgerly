@@ -2,6 +2,7 @@ import SwiftUI
 import CoreData
 
 struct GridCategoryView: View {
+    @EnvironmentObject var loc: LocalizationManager
     let book: Book
     let categoryType: CategoryType
     @Binding var selectedCategory: Category?
@@ -29,7 +30,7 @@ struct GridCategoryView: View {
                     emptyState
                 } else {
                     sectionView(
-                        title: "Top-level",
+                        title: loc["component.topLevelCategory"],
                         categories: topLevelCategories,
                         selectedId: selectedParentCategory?.id,
                         showAddButton: true,
@@ -221,7 +222,7 @@ struct GridCategoryView: View {
             Image(systemName: "folder")
                 .font(.system(size: 40))
                 .foregroundStyle(.tertiary)
-            Text("No categories")
+            Text(loc["component.noCategories"])
                 .font(.headline)
                 .foregroundStyle(.secondary)
 
@@ -231,7 +232,7 @@ struct GridCategoryView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "plus.circle.fill")
                         .font(.body)
-                    Text("Add Category")
+                    Text(loc["component.addCategory"])
                         .font(.subheadline)
                 }
                 .foregroundStyle(themeColor)
@@ -301,6 +302,7 @@ struct CategoryGridItem: View {
 }
 
 struct AddCategoryButton: View {
+    @EnvironmentObject var loc: LocalizationManager
     let itemWidth: CGFloat
     let onTap: () -> Void
 
@@ -318,7 +320,7 @@ struct AddCategoryButton: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Text("Add")
+                Text(loc["component.add"])
                     .font(.system(size: 10))
                     .foregroundStyle(.tertiary)
                     .lineLimit(1)

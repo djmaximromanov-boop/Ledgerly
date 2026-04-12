@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct AmountKeyboard: View {
+    @EnvironmentObject var loc: LocalizationManager
     @Binding var text: String
     var themeColor: Color = .accentColor
     let onConfirm: () -> Void

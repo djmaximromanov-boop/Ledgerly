@@ -4,6 +4,7 @@ import CoreData
 @MainActor
 class CategoryViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
+    private let loc = LocalizationManager()
 
     func addCategory(
         name: String,
@@ -13,7 +14,7 @@ class CategoryViewModel: ObservableObject {
         parent: Category? = nil
     ) -> Bool {
         guard !name.isEmpty else {
-            errorMessage = "Please enter a category name"
+            errorMessage = loc["validation.enterCategoryName"]
             return false
         }
 
@@ -37,7 +38,7 @@ class CategoryViewModel: ObservableObject {
             errorMessage = nil
             return true
         } catch {
-            errorMessage = "Save failed: \(error.localizedDescription)"
+            errorMessage = String(format: loc["validation.saveFailed"], error.localizedDescription)
             return false
         }
     }
@@ -48,7 +49,7 @@ class CategoryViewModel: ObservableObject {
         icon: String
     ) -> Bool {
         guard !name.isEmpty else {
-            errorMessage = "Please enter a category name"
+            errorMessage = loc["validation.enterCategoryName"]
             return false
         }
 
@@ -60,19 +61,19 @@ class CategoryViewModel: ObservableObject {
             errorMessage = nil
             return true
         } catch {
-            errorMessage = "Save failed: \(error.localizedDescription)"
+            errorMessage = String(format: loc["validation.saveFailed"], error.localizedDescription)
             return false
         }
     }
 
     func deleteCategory(_ category: Category) -> Bool {
         guard category.canDelete else {
-            errorMessage = "Default categories cannot be deleted"
+            errorMessage = loc["validation.cannotDeleteDefault"]
             return false
         }
 
         if let transactionCount = category.transactions?.count, transactionCount > 0 {
-            errorMessage = "This category has \(transactionCount) records and cannot be deleted"
+            errorMessage = String(format: loc["validation.categoryHasRecords"], transactionCount)
             return false
         }
 

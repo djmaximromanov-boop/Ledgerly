@@ -4,6 +4,7 @@ import CoreData
 @MainActor
 class BookViewModel: ObservableObject {
     let persistenceController: PersistenceController
+    private let loc = LocalizationManager()
 
     @Published var books: [Book] = []
     @Published var currentBook: Book?
@@ -57,7 +58,7 @@ class BookViewModel: ObservableObject {
 
         let _ = Member.create(
             in: context,
-            name: "Me",
+            name: loc["common.me"],
             book: book,
             role: .owner
         )
