@@ -8,7 +8,7 @@ class PersistenceController {
 
     init(inMemory: Bool = false) {
         self.inMemory = inMemory
-        container = NSPersistentCloudKitContainer(name: "BookKeeper")
+        container = NSPersistentCloudKitContainer(name: "Ledgerly")
 
         guard let description = container.persistentStoreDescriptions.first else {
             fatalError("Failed to load persistent store description")

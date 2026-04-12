@@ -37,8 +37,8 @@ Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports p
 ## Project Structure
 
 ```
-BookKeeper/
-├── BookKeeperApp.swift          # App entry (LedgerlyApp)
+Ledgerly/
+├── LedgerlyApp.swift              # App entry
 ├── ContentView.swift            # TabView container
 ├── Models/
 │   ├── CoreData/                # Core Data entities + extensions
@@ -81,7 +81,7 @@ open Ledgerly.xcodeproj
 To enable CloudKit sync and shared ledgers:
 
 1. Set your **Development Team** in Xcode project settings
-2. Update the iCloud container identifier in `BookKeeper/BookKeeper.entitlements` and `project.yml` to match your Apple Developer account
+2. Update the iCloud container identifier in `Ledgerly/Ledgerly.entitlements` and `project.yml` to match your Apple Developer account
 3. Ensure the CloudKit container is created in the [CloudKit Console](https://icloud.developer.apple.com/)
 
 > On the Simulator, CloudKit sync is automatically disabled for development convenience.
@@ -113,7 +113,7 @@ Key relationships:
 
 ## Documentation
 
-Full product and technical specification: [BOOKKEEPER_SPEC.md](./BOOKKEEPER_SPEC.md)
+Full product and technical specification: [LEDGERLY_SPEC.md](./LEDGERLY_SPEC.md)
 
 ## License
 

@@ -115,14 +115,14 @@ LedgerlyApp (入口)
 ### 3.2 目录结构
 
 ```
-BookKeeper/
-├── LedgerlyApp.swift              # App 入口 (LedgerlyApp)
+Ledgerly/
+├── LedgerlyApp.swift               # App 入口
 ├── ContentView.swift                # TabView 主容器
 ├── Info.plist                       # 应用配置
-├── BookKeeper.entitlements          # iCloud 权限
+├── Ledgerly.entitlements            # iCloud 权限
 ├── Models/
 │   ├── CoreData/
-│   │   ├── BookKeeper.xcdatamodeld/ # Core Data 模型定义
+│   │   ├── Ledgerly.xcdatamodeld/ # Core Data 模型定义
 │   │   ├── Book+CoreData.swift      # 账本实体
 │   │   ├── Account+CoreData.swift   # 账户实体
 │   │   ├── Transaction+CoreData.swift # 交易实体
@@ -619,7 +619,7 @@ Date.adding(months:) / .adding(days:)
 ### 10.1 环境注入
 
 ```
-BookKeeperApp
+LedgerlyApp
   └─ ContentView
        .environment(\.managedObjectContext, PersistenceController.shared.viewContext)
        .environmentObject(bookVM)  // BookViewModel
@@ -648,7 +648,7 @@ View → ViewModel → PersistenceController → Core Data → CloudKit (自动�
 
 ## 十一、Core Data 模型 XML
 
-完整的 `.xcdatamodeld` 定义见 `BookKeeper/Models/CoreData/BookKeeper.xcdatamodeld/BookKeeper.xcdatamodel/contents`。
+完整的 `.xcdatamodeld` 定义见 `Ledgerly/Models/CoreData/Ledgerly.xcdatamodeld/Ledgerly.xcdatamodel/contents`。
 
 7 个实体：Book, Category, Transaction, Member, Budget, Account, SplitRecord
 

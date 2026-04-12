@@ -10,7 +10,7 @@ settings:
   base:
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "1"
-    INFOPLIST_FILE: BookKeeper/Info.plist
+    INFOPLIST_FILE: Ledgerly/Info.plist
     DEVELOPMENT_TEAM: ""
 
 targets:
@@ -18,13 +18,13 @@ targets:
     type: application
     platform: iOS
     sources:
-      - path: BookKeeper
+      - path: Ledgerly
         excludes:
           - "**/.DS_Store"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ledgerly.app
-        INFOPLIST_FILE: BookKeeper/Info.plist
+        INFOPLIST_FILE: Ledgerly/Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
         GENERATE_INFOPLIST_FILE: false
@@ -32,7 +32,7 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         MARKETING_VERSION: "1.0.0"
     entitlements:
-      path: BookKeeper/BookKeeper.entitlements
+      path: Ledgerly/Ledgerly.entitlements
       properties:
         com.apple.developer.icloud-container-identifiers:
           - "iCloud.com.ledgerly.app"
