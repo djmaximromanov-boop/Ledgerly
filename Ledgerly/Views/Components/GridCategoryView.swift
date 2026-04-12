@@ -272,7 +272,7 @@ struct CategoryGridItem: View {
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 4) {
-                ZStack(alignment: .topTrailing) {
+                ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(isSelected ? themeColor : Color(.systemGray6))
                         .frame(width: 48, height: 48)
@@ -286,7 +286,8 @@ struct CategoryGridItem: View {
                     Image(systemName: category.icon)
                         .font(.system(size: 20, weight: isSelected ? .semibold : .medium))
                         .foregroundStyle(isSelected ? .white : .primary)
-
+                }
+                .overlay(alignment: .topTrailing) {
                     if category.priorityLevel != .none {
                         Image(systemName: "flag.fill")
                             .font(.system(size: 8))

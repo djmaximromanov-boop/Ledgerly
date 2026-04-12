@@ -214,23 +214,22 @@ struct CategoryListView: View {
     @ViewBuilder
     private func categoryRow(category: Category) -> some View {
         HStack(spacing: 12) {
-            ZStack(alignment: .topTrailing) {
-                Image(systemName: category.icon)
-                    .font(.callout)
-                    .frame(width: 36, height: 36)
-                    .foregroundStyle(.white)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.categoryColor(for: Int(category.sortOrder)))
-                    )
-
-                if category.priorityLevel != .none {
-                    Image(systemName: "flag.fill")
-                        .font(.system(size: 10))
-                        .foregroundStyle(flagColor(for: category.priorityLevel))
-                        .offset(x: 6, y: -6)
+            Image(systemName: category.icon)
+                .font(.callout)
+                .frame(width: 36, height: 36)
+                .foregroundStyle(.white)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.categoryColor(for: Int(category.sortOrder)))
+                )
+                .overlay(alignment: .topTrailing) {
+                    if category.priorityLevel != .none {
+                        Image(systemName: "flag.fill")
+                            .font(.system(size: 10))
+                            .foregroundStyle(flagColor(for: category.priorityLevel))
+                            .offset(x: 6, y: -6)
+                    }
                 }
-            }
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
