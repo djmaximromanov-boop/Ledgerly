@@ -9,9 +9,7 @@ struct CategoryListView: View {
 
     @State private var selectedType: CategoryType = .expense
     @State private var showAddSheet = false
-    @State private var showSortSheet = false
     @State private var editingCategory: Category? = nil
-    @State private var priorityCategory: Category? = nil
     @State private var newCategoryName = ""
     @State private var newCategoryIcon = "fork.knife"
     @FocusState private var isEditNameFocused: Bool
@@ -54,7 +52,10 @@ struct CategoryListView: View {
                     } else {
                         List {
                             ForEach(categories, id: \.id) { category in
-                                categoryRow(category: category)
+                                categoryRow(category: category, categories: categories)
+                            }
+                            .onMove { source, destination in
+                                categoryVM.moveCategory(categories, from: source, to: destination)
                             }
                         }
                         .listStyle(.plain)
@@ -64,16 +65,6 @@ struct CategoryListView: View {
             .navigationTitle(loc["categories.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    if let book = bookVM.currentBook {
-                        Button {
-                            showSortSheet = true
-                        } label: {
-                            Image(systemName: "arrow.up.arrow.down")
-                        }
-                    }
-                }
-
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         editingCategory = nil
@@ -88,39 +79,10 @@ struct CategoryListView: View {
             .sheet(isPresented: $showAddSheet) {
                 categoryEditSheet()
             }
-            .sheet(isPresented: $showSortSheet) {
-                if let book = bookVM.currentBook {
-                    CategorySortView(book: book, categoryType: selectedType)
-                }
-            }
             .alert(loc["categories.error"], isPresented: .constant(categoryVM.errorMessage != nil)) {
                 Button(loc["categories.ok"]) { categoryVM.errorMessage = nil }
             } message: {
                 Text(categoryVM.errorMessage ?? "")
-            }
-            .confirmationDialog(
-                loc["categories.setPriority"],
-                isPresented: .init(
-                    get: { priorityCategory != nil },
-                    set: { if !$0 { priorityCategory = nil } }
-                ),
-                titleVisibility: .visible
-            ) {
-                ForEach(Category.PriorityLevel.allCases, id: \.self) { level in
-                    Button(priorityLabel(for: level)) {
-                        if let cat = priorityCategory {
-                            categoryVM.setPriority(cat, level: level)
-                            priorityCategory = nil
-                        }
-                    }
-                }
-                Button(loc["categories.cancel"], role: .cancel) {
-                    priorityCategory = nil
-                }
-            } message: {
-                if let cat = priorityCategory {
-                    Text("\(cat.name)")
-                }
             }
         }
     }
@@ -212,7 +174,7 @@ struct CategoryListView: View {
     }
 
     @ViewBuilder
-    private func categoryRow(category: Category) -> some View {
+    private func categoryRow(category: Category, categories: [Category]) -> some View {
         HStack(spacing: 12) {
             Image(systemName: category.icon)
                 .font(.callout)
@@ -222,33 +184,10 @@ struct CategoryListView: View {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color.categoryColor(for: Int(category.sortOrder)))
                 )
-                .overlay(alignment: .topTrailing) {
-                    if category.priorityLevel != .none {
-                        Image(systemName: "flag.fill")
-                            .font(.system(size: 10))
-                            .foregroundStyle(flagColor(for: category.priorityLevel))
-                            .offset(x: 6, y: -6)
-                    }
-                }
 
             VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) {
-                    Text(category.name)
-                        .font(.body)
-
-                    if category.priorityLevel != .none {
-                        Text(priorityLabel(for: category.priorityLevel))
-                            .font(.caption2)
-                            .fontWeight(.medium)
-                            .foregroundStyle(flagColor(for: category.priorityLevel))
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 1)
-                            .background(
-                                RoundedRectangle(cornerRadius: 3)
-                                    .fill(flagColor(for: category.priorityLevel).opacity(0.12))
-                            )
-                    }
-                }
+                Text(category.name)
+                    .font(.body)
 
                 if category.isSystem {
                     Text(loc["categories.default"])
@@ -259,6 +198,32 @@ struct CategoryListView: View {
 
             Spacer()
 
+            VStack(spacing: 2) {
+                let idx = categories.firstIndex(where: { $0.id == category.id }) ?? 0
+
+                Button {
+                    categoryVM.moveUp(category, in: categories)
+                } label: {
+                    Image(systemName: "chevron.up")
+                        .font(.system(size: 12, weight: .semibold))
+                        .frame(width: 28, height: 22)
+                        .foregroundStyle(idx > 0 ? Color.accentColor : Color(.systemGray4))
+                        .contentShape(Rectangle())
+                }
+                .disabled(idx == 0)
+
+                Button {
+                    categoryVM.moveDown(category, in: categories)
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 12, weight: .semibold))
+                        .frame(width: 28, height: 22)
+                        .foregroundStyle(idx < categories.count - 1 ? Color.accentColor : Color(.systemGray4))
+                        .contentShape(Rectangle())
+                }
+                .disabled(idx == categories.count - 1)
+            }
+
             if category.canDelete {
                 Menu {
                     Button {
@@ -268,12 +233,6 @@ struct CategoryListView: View {
                         showAddSheet = true
                     } label: {
                         Label(loc["categories.edit"], systemImage: "pencil")
-                    }
-
-                    Button {
-                        priorityCategory = category
-                    } label: {
-                        Label(loc["categories.setPriority"], systemImage: "flag")
                     }
 
                     Divider()
@@ -291,28 +250,6 @@ struct CategoryListView: View {
             }
         }
         .padding(.vertical, 4)
-        .contentShape(Rectangle())
-        .onLongPressGesture {
-            priorityCategory = category
-        }
-    }
-
-    private func flagColor(for level: Category.PriorityLevel) -> Color {
-        switch level {
-        case .none: return .clear
-        case .low: return .blue
-        case .medium: return .orange
-        case .high: return .red
-        }
-    }
-
-    private func priorityLabel(for level: Category.PriorityLevel) -> String {
-        switch level {
-        case .none: return loc["categories.priorityNone"]
-        case .low: return loc["categories.priorityLow"]
-        case .medium: return loc["categories.priorityMedium"]
-        case .high: return loc["categories.priorityHigh"]
-        }
     }
 
     @ViewBuilder

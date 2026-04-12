@@ -159,11 +159,6 @@ final class LocalizationManager: ObservableObject {
         "categories.ok": "OK",
         "categories.addSubcategory": "Add Subcategory",
         "categories.parent": "Parent",
-        "categories.setPriority": "Set Priority",
-        "categories.priorityNone": "None",
-        "categories.priorityLow": "Low",
-        "categories.priorityMedium": "Medium",
-        "categories.priorityHigh": "High",
 
         // MARK: - Member List
         "members.title": "Members",
@@ -522,11 +517,6 @@ final class LocalizationManager: ObservableObject {
         "categories.ok": "确定",
         "categories.addSubcategory": "添加子分类",
         "categories.parent": "父分类",
-        "categories.setPriority": "设置优先级",
-        "categories.priorityNone": "无",
-        "categories.priorityLow": "低",
-        "categories.priorityMedium": "中",
-        "categories.priorityHigh": "高",
 
         // MARK: - Member List
         "members.title": "成员管理",

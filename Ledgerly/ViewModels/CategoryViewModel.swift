@@ -82,8 +82,46 @@ class CategoryViewModel: ObservableObject {
         return true
     }
 
-    func setPriority(_ category: Category, level: Category.PriorityLevel) {
-        category.priorityLevel = level
+    func moveCategory(_ categories: [Category], from source: IndexSet, to destination: Int) {
+        var reordered = categories
+        reordered.move(fromOffsets: source, toOffset: destination)
+
+        for (index, cat) in reordered.enumerated() {
+            cat.sortOrder = Int32(index)
+        }
+
+        do {
+            try PersistenceController.shared.save()
+        } catch {
+            errorMessage = String(format: loc["validation.saveFailed"], error.localizedDescription)
+        }
+    }
+
+    func moveUp(_ category: Category, in categories: [Category]) {
+        guard let currentIndex = categories.firstIndex(where: { $0.id == category.id }),
+              currentIndex > 0 else { return }
+
+        let previous = categories[currentIndex - 1]
+        let tempSort = category.sortOrder
+        category.sortOrder = previous.sortOrder
+        previous.sortOrder = tempSort
+
+        do {
+            try PersistenceController.shared.save()
+        } catch {
+            errorMessage = String(format: loc["validation.saveFailed"], error.localizedDescription)
+        }
+    }
+
+    func moveDown(_ category: Category, in categories: [Category]) {
+        guard let currentIndex = categories.firstIndex(where: { $0.id == category.id }),
+              currentIndex < categories.count - 1 else { return }
+
+        let next = categories[currentIndex + 1]
+        let tempSort = category.sortOrder
+        category.sortOrder = next.sortOrder
+        next.sortOrder = tempSort
+
         do {
             try PersistenceController.shared.save()
         } catch {
@@ -95,12 +133,7 @@ class CategoryViewModel: ObservableObject {
         let categories = book.categories?.allObjects as? [Category] ?? []
         return categories
             .filter { $0.categoryType == type && $0.isTopLevel }
-            .sorted { lhs, rhs in
-                if lhs.priority != rhs.priority {
-                    return lhs.priority > rhs.priority
-                }
-                return lhs.sortOrder < rhs.sortOrder
-            }
+            .sorted { $0.sortOrder < $1.sortOrder }
     }
 
     func getSubCategories(for parent: Category) -> [Category] {
@@ -108,11 +141,6 @@ class CategoryViewModel: ObservableObject {
         let categories = book.categories?.allObjects as? [Category] ?? []
         return categories
             .filter { $0.parentId == parent.id }
-            .sorted { lhs, rhs in
-                if lhs.priority != rhs.priority {
-                    return lhs.priority > rhs.priority
-                }
-                return lhs.sortOrder < rhs.sortOrder
-            }
+            .sorted { $0.sortOrder < $1.sortOrder }
     }
 }
