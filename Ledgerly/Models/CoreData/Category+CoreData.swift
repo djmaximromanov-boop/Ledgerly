@@ -11,10 +11,41 @@ extension Category {
     @NSManaged public var isSystem: Bool
     @NSManaged public var name: String
     @NSManaged public var parentId: UUID?
+    @NSManaged public var priority: Int16
     @NSManaged public var sortOrder: Int32
     @NSManaged public var type: String
     @NSManaged public var book: Book?
     @NSManaged public var transactions: NSSet?
+
+    enum PriorityLevel: Int16, CaseIterable {
+        case none = 0
+        case low = 1
+        case medium = 2
+        case high = 3
+
+        var iconName: String {
+            switch self {
+            case .none: return ""
+            case .low: return "flag.fill"
+            case .medium: return "flag.fill"
+            case .high: return "flag.fill"
+            }
+        }
+
+        var color: String {
+            switch self {
+            case .none: return ""
+            case .low: return "blue"
+            case .medium: return "orange"
+            case .high: return "red"
+            }
+        }
+    }
+
+    var priorityLevel: PriorityLevel {
+        get { PriorityLevel(rawValue: priority) ?? .none }
+        set { priority = newValue.rawValue }
+    }
 
     var categoryType: CategoryType {
         get { CategoryType(rawValue: type) ?? .expense }

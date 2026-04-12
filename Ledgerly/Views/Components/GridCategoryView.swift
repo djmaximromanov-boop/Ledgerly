@@ -20,7 +20,12 @@ struct GridCategoryView: View {
     private var topLevelCategories: [Category] {
         allCategories
             .filter { $0.isTopLevel }
-            .sorted { $0.sortOrder < $1.sortOrder }
+            .sorted { lhs, rhs in
+                if lhs.priority != rhs.priority {
+                    return lhs.priority > rhs.priority
+                }
+                return lhs.sortOrder < rhs.sortOrder
+            }
     }
 
     var body: some View {
@@ -51,7 +56,12 @@ struct GridCategoryView: View {
                     if let parent = selectedParentCategory {
                         let subCategories = allCategories
                             .filter { $0.parentId == parent.id }
-                            .sorted { $0.sortOrder < $1.sortOrder }
+                            .sorted { lhs, rhs in
+                                if lhs.priority != rhs.priority {
+                                    return lhs.priority > rhs.priority
+                                }
+                                return lhs.sortOrder < rhs.sortOrder
+                            }
 
                         sectionView(
                             title: "Sub-level",
@@ -250,6 +260,7 @@ struct GridCategoryView: View {
 }
 
 struct CategoryGridItem: View {
+    @EnvironmentObject var loc: LocalizationManager
     let category: Category
     let isSelected: Bool
     var themeColor: Color = .accentColor
@@ -261,7 +272,7 @@ struct CategoryGridItem: View {
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 4) {
-                ZStack {
+                ZStack(alignment: .topTrailing) {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(isSelected ? themeColor : Color(.systemGray6))
                         .frame(width: 48, height: 48)
@@ -275,6 +286,13 @@ struct CategoryGridItem: View {
                     Image(systemName: category.icon)
                         .font(.system(size: 20, weight: isSelected ? .semibold : .medium))
                         .foregroundStyle(isSelected ? .white : .primary)
+
+                    if category.priorityLevel != .none {
+                        Image(systemName: "flag.fill")
+                            .font(.system(size: 8))
+                            .foregroundStyle(isSelected ? .white : flagColor)
+                            .offset(x: 4, y: -4)
+                    }
                 }
 
                 Text(category.name)
@@ -297,6 +315,15 @@ struct CategoryGridItem: View {
                     }
                 }
             }
+        }
+    }
+
+    private var flagColor: Color {
+        switch category.priorityLevel {
+        case .none: return .clear
+        case .low: return .blue
+        case .medium: return .orange
+        case .high: return .red
         }
     }
 }
