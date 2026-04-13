@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">Ledgerly</h1>
+  <h1 align="center">Ledgerly — iOS Expense Tracker & Budget App</h1>
   <p align="center">
     <strong>Your money. Your data. Your rules.</strong>
   </p>
@@ -15,20 +15,29 @@
 
 ---
 
-Ledgerly is an open-source iOS expense tracker built with SwiftUI. It supports personal and shared ledger management, budget tracking, and rich statistical insights — all powered by Core Data + CloudKit with **zero third-party dependencies**.
+**Ledgerly** is a free, open-source **iOS expense tracker** and **budget management app** built with SwiftUI. Track your spending, manage personal and shared ledgers, split bills, and visualize financial trends — all with **iCloud sync** via Core Data + CloudKit and **zero third-party dependencies**.
+
+Whether you're looking for a **personal finance app**, a **money tracker**, or a **shared expense manager** for couples and teams, Ledgerly has you covered.
 
 ## ✨ Features
 
+### Expense Tracking & Quick Entry
 - **Quick Entry** — Custom calculator keyboard with expression support (+, -, ×), two-level category grid, expense/income toggle
 - **Bill Management** — Monthly filtering, search, daily grouping, swipe-to-delete
-- **Statistics** — Trend charts (line + area), category pie charts, member comparison (shared ledgers), weekly/monthly/yearly views
-- **Ledger Management** — Personal & shared ledgers, icon selection, ledger switching
-- **Budget Tracking** — Monthly/yearly budgets, gradient progress bars, overrun alerts
 - **Category System** — 10 expense + 4 income preset categories with subcategories, custom categories, drag-to-sort
+
+### Budget & Financial Insights
+- **Budget Tracking** — Monthly/yearly budgets, gradient progress bars, overrun alerts
+- **Statistics** — Trend charts (line + area), category pie charts, member comparison (shared ledgers), weekly/monthly/yearly views
+- **Data Export** — CSV and JSON export with share sheet
+
+### Shared Finance & Collaboration
 - **Shared Ledgers** — iCloud-based sharing via CloudKit CKShare, member roles (owner/editor/viewer)
 - **Bill Splitting** — Equal split or custom ratio, per-member share calculation
-- **Data Export** — CSV and JSON export with share sheet
-- **iCloud Sync** — Automatic sync via NSPersistentCloudKitContainer
+- **Ledger Management** — Personal & shared ledgers, icon selection, ledger switching
+
+### Data & Privacy
+- **iCloud Sync** — Automatic sync via NSPersistentCloudKitContainer — your data stays on your Apple account
 - **Data Archiving** — Auto-archive records older than 6 months or exceeding 10,000 entries
 - **Notifications** — Budget overrun alerts, daily recording reminders
 - **Localization** — In-app language switching (English / 简体中文), extensible for more languages
