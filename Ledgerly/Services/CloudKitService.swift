@@ -8,7 +8,7 @@ actor CloudKitService {
     private let privateDatabase: CKDatabase
 
     private init() {
-        container = CKContainer(identifier: "iCloud.com.bookkeeper.app")
+        container = CKContainer(identifier: "iCloud.com.ledgerly.app")
         privateDatabase = container.privateCloudDatabase
     }
 

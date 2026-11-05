@@ -7,7 +7,9 @@ struct LedgerlyApp: App {
     @StateObject private var locManager = LocalizationManager()
 
     init() {
+        #if targetEnvironment(simulator)
         PersistenceController.shared.seedDemoDataIfNeeded()
+        #endif
     }
 
     var body: some Scene {

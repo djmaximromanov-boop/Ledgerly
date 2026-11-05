@@ -83,7 +83,7 @@ struct ShareBookView: View {
     }
 
     private func createShareForBook() async -> CKShare? {
-        let container = CKContainer(identifier: "iCloud.com.bookkeeper.app")
+        let container = CKContainer(identifier: "iCloud.com.ledgerly.app")
         let zoneId = CKRecordZone.ID(
             zoneName: "BookZone_\(book.id.uuidString)",
             ownerName: CKCurrentUserDefaultName

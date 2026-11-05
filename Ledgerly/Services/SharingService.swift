@@ -52,7 +52,7 @@ class SharingViewModel: ObservableObject {
             ownerName: CKCurrentUserDefaultName
         )
 
-        let container = CKContainer(identifier: "iCloud.com.bookkeeper.app")
+        let container = CKContainer(identifier: "iCloud.com.ledgerly.app")
 
         return nil
     }

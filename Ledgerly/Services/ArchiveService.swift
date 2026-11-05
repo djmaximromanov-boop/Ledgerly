@@ -10,7 +10,7 @@ actor ArchiveService {
     private let recordCountThreshold: Int = 10_000
 
     private init() {
-        container = CKContainer(identifier: "iCloud.com.bookkeeper.app")
+        container = CKContainer(identifier: "iCloud.com.ledgerly.app")
         privateDatabase = container.privateCloudDatabase
     }
 

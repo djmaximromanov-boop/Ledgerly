@@ -42,6 +42,17 @@ LocalizationManager. Общие UI-компоненты и Extensions испол
 Не добавлять отдельную базу или копии общих моделей для каждого чата.
 Факт наличия CloudKitService не доказывает работающий обмен данными.
 
+## Локальная сборка и iCloud
+
+Обычная сборка использует локальное Core Data-хранилище и не подписывает приложение
+с iCloud entitlement, чтобы его можно было запускать на личном устройстве с Personal
+Team. Для облачной сборки задаётся Swift compilation condition
+`LEDGERLY_CLOUDKIT_ENABLED`, подключается `Ledgerly/Ledgerly.entitlements`, а в Apple
+Developer настраивается контейнер `iCloud.com.ledgerly.app`. Такое подключение требует
+поддерживаемого членства Apple Developer Program; без него iCloud sync и sharing не
+считать доступными. Перед включением облачного режима отдельно проверить синхронизацию,
+совместный доступ и восстановление данных.
+
 ## Локализация и валюта
 
 Language.ru / ru_RU — язык по умолчанию; LocalizationManager содержит полный русский словарь.
