@@ -11,6 +11,7 @@
 		04E3DC4151FF18BF73E7D631 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20575F598AA4B61F51F7348 /* CategoryType.swift */; };
 		0704F1705B25099392BCBEBE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2615F29FFED4F7F706E35E /* CoreDataStack.swift */; };
 		09D2EF51028C19F6976A9254 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC60049DC74AB6557130B960 /* LocalizationManager.swift */; };
+		0B4E52F8A1C6D3E7F9012A4B /* MoneyOKImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */; };
 		09F9CE1D2E0ECDB5C5E2EB35 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386CE3996E057F23D43B069 /* ArchiveService.swift */; };
 		0AC0ADD33CA2F87751981822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F2A890E728911E00541E49 /* Assets.xcassets */; };
 		0E86F04CE14C54B4FB098426 /* Transaction+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12AFA4951C68A24EE6B9137 /* Transaction+CoreData.swift */; };
@@ -107,6 +108,7 @@
 		C31F1FA03711EABC5F4CC761 /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
 		C49A1BEE7CAE7E0F0D59DC4F /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		CAED42728E34A08C40392FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyOKImportService.swift; sourceTree = "<group>"; };
 		D2C7270335F5DE18EF00117C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		D627BCA744EBF23187C54BF4 /* MemberComparisonChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberComparisonChart.swift; sourceTree = "<group>"; };
 		D9D3C0E6A6F21989E1EB9F33 /* CategoryPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPieChart.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				1386CE3996E057F23D43B069 /* ArchiveService.swift */,
 				332DDAFD0D9C8CA70DB92FFC /* CloudKitService.swift */,
 				EC60049DC74AB6557130B960 /* LocalizationManager.swift */,
+				0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */,
 				D2C7270335F5DE18EF00117C /* NotificationService.swift */,
 				F36863FA65FD5D0DCF271723 /* SharingService.swift */,
 			);
@@ -414,6 +417,7 @@
 				20A04B00C356A1B36BD6DC24 /* Ledgerly.xcdatamodeld in Sources */,
 				85243F606AF4070693F950D1 /* LedgerlyApp.swift in Sources */,
 				09D2EF51028C19F6976A9254 /* LocalizationManager.swift in Sources */,
+				0B4E52F8A1C6D3E7F9012A4B /* MoneyOKImportService.swift in Sources */,
 				16F5B2C975EB7861AC7EE7C3 /* Member+CoreData.swift in Sources */,
 				B8D26F7CF85880DE0064C139 /* MemberComparisonChart.swift in Sources */,
 				26D8CAE7319B05436023B508 /* MemberListView.swift in Sources */,

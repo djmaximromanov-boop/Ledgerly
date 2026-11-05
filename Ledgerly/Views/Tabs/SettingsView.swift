@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @AppStorage("currency") private var currency = "RUB"
@@ -38,6 +39,12 @@ struct SettingsView: View {
                     }
 
                     NavigationLink {
+                        DataImportView()
+                    } label: {
+                        Label(loc["settings.importData"], systemImage: "square.and.arrow.down")
+                    }
+
+                    NavigationLink {
                         DataManageView()
                     } label: {
                         Label(loc["settings.dataManagement"], systemImage: "externaldrive")
@@ -63,6 +70,86 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle(loc["settings.title"])
+        }
+    }
+}
+
+struct DataImportView: View {
+    @EnvironmentObject var bookVM: BookViewModel
+    @EnvironmentObject var loc: LocalizationManager
+
+    @State private var showFileImporter = false
+    @State private var importMessage: String?
+    @State private var errorMessage: String?
+
+    var body: some View {
+        List {
+            Section {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(loc["settings.importMoneyOK"])
+                        .font(.subheadline.weight(.medium))
+                    Text(loc["settings.importDesc"])
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
+                    showFileImporter = true
+                } label: {
+                    Label(loc["settings.chooseCSV"], systemImage: "doc.badge.plus")
+                }
+            }
+
+            if let importMessage {
+                Section(loc["settings.importResult"]) {
+                    Text(importMessage)
+                        .font(.subheadline)
+                }
+            }
+        }
+        .navigationTitle(loc["settings.importData"])
+        .fileImporter(
+            isPresented: $showFileImporter,
+            allowedContentTypes: [.data, .text, .commaSeparatedText],
+            allowsMultipleSelection: false
+        ) { result in
+            handleImport(result)
+        }
+        .alert(loc["settings.importError"], isPresented: Binding(
+            get: { errorMessage != nil },
+            set: { if !$0 { errorMessage = nil } }
+        )) {
+            Button(loc["categories.ok"], role: .cancel) { errorMessage = nil }
+        } message: {
+            Text(errorMessage ?? "")
+        }
+    }
+
+    private func handleImport(_ result: Result<[URL], Error>) {
+        guard case .success(let urls) = result, let url = urls.first else { return }
+        let didStartAccessing = url.startAccessingSecurityScopedResource()
+        defer {
+            if didStartAccessing { url.stopAccessingSecurityScopedResource() }
+        }
+
+        do {
+            let summary = try MoneyOKImportService.importFile(
+                at: url,
+                into: PersistenceController.shared.viewContext
+            )
+            bookVM.fetchBooks()
+            bookVM.currentBook = summary.book
+            importMessage = String(
+                format: loc["settings.importSummary"],
+                summary.importedTransactions,
+                summary.importedTransfers,
+                summary.appliedBalances,
+                summary.createdAccounts,
+                summary.createdCategories,
+                summary.skippedRows
+            )
+        } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         }
     }
 }
@@ -111,7 +198,12 @@ struct DataExportView: View {
 
         var csv = "\(loc["stats.date"]),\(loc["categories.type"]),\(loc["stats.category"]),\(loc["ledgers.amount"]),\(loc["quickEntry.note"])\n"
         for t in transactions {
-            let type = t.transactionType == .expense ? loc["categories.expense"] : loc["categories.income"]
+            let type: String
+            switch t.transactionType {
+            case .expense: type = loc["categories.expense"]
+            case .income: type = loc["categories.income"]
+            case .transfer: type = loc["categories.transfer"]
+            }
             let category = t.category?.displayName ?? ""
             let amount = (t.amount as Decimal).currencyString
             let note = t.note ?? ""
@@ -129,7 +221,7 @@ struct DataExportView: View {
         for t in transactions {
             items.append([
                 "date": t.date.formatted(.dateTime.locale(Language.current.locale).year().month().day()),
-                "type": t.transactionType == .expense ? "expense" : "income",
+                "type": t.transactionType.rawValue,
                 "category": t.category?.displayName ?? "",
                 "amount": String(describing: t.amount),
                 "note": t.note ?? ""

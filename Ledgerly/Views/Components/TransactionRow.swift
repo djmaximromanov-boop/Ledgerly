@@ -60,7 +60,7 @@ struct TransactionRow: View {
                 Text(amountText)
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundStyle(transaction.transactionType == .expense ? .red : .green)
+                    .foregroundStyle(amountColor)
 
                 Text(transaction.date.formatted(.dateTime.locale(Language.current.locale).month().day()))
                     .font(.caption2)
@@ -85,7 +85,20 @@ struct TransactionRow: View {
 
     private var amountText: String {
         let amount = transaction.amount as Decimal
-        let prefix = transaction.transactionType == .expense ? "-" : "+"
+        let prefix: String
+        switch transaction.transactionType {
+        case .expense: prefix = "-"
+        case .income: prefix = "+"
+        case .transfer: prefix = "↔ "
+        }
         return prefix + amount.currencyString
+    }
+
+    private var amountColor: Color {
+        switch transaction.transactionType {
+        case .expense: return .red
+        case .income: return .green
+        case .transfer: return .orange
+        }
     }
 }

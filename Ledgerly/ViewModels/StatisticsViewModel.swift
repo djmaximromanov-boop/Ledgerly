@@ -184,7 +184,7 @@ class StatisticsViewModel: ObservableObject {
             let day = cal.startOfDay(for: t.date)
             if t.transactionType == .expense {
                 expByDate[day, default: 0] += t.amount as Decimal
-            } else {
+            } else if t.transactionType == .income {
                 incByDate[day, default: 0] += t.amount as Decimal
             }
         }
@@ -215,7 +215,7 @@ class StatisticsViewModel: ObservableObject {
             guard let monthStart = cal.date(from: comps) else { continue }
             if t.transactionType == .expense {
                 expByMonth[monthStart, default: 0] += t.amount as Decimal
-            } else {
+            } else if t.transactionType == .income {
                 incByMonth[monthStart, default: 0] += t.amount as Decimal
             }
         }
