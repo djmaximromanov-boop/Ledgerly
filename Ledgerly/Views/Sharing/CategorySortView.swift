@@ -20,7 +20,7 @@ struct CategorySortView: View {
                             .background(Color.accentColor.opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                        Text(category.name)
+                        Text(category.displayName)
                             .font(.body)
 
                         Spacer()

@@ -20,6 +20,7 @@ Git хранит код и решения; сообщения чатов не с
 Откройте `Ledgerly.xcodeproj` в установленном Xcode. Существующий проект уже включён;
 XcodeGen нужен при изменении `project.yml`, а не для первого открытия.
 Минимальная цель в конфигурации: iOS 17, Swift 5.9. Название target пока Ledgerly.
+Пошаговая установка на личный iPhone 16e описана в [INSTALL_IOS.md](INSTALL_IOS.md).
 
 Проверка без подписи:
 
@@ -27,6 +28,8 @@ XcodeGen нужен при изменении `project.yml`, а не для пе
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Ledgerly.xcodeproj -scheme Ledgerly -sdk iphonesimulator -configuration Debug -derivedDataPath /tmp/more-finance-build CODE_SIGNING_ALLOWED=NO build
 ```
 
-Для iPhone отдельно настроить свою команду подписи, bundle ID и CloudKit-контейнер.
+Обычная сборка хранит данные локально и не запрашивает платный CloudKit. Для установки
+через Xcode нужно указать личную команду подписи и уникальный bundle ID. CloudKit
+можно включить отдельно; требования и шаги описаны в `INSTALL_IOS.md`.
 Существующий `run_device.sh` не запускался. Не считать iCloud, экспорт и миграции
 проверенными по одному наличию исходников. Результаты проверок: [VALIDATION.md](VALIDATION.md).

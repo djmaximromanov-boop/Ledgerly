@@ -171,7 +171,7 @@ struct BookRow: View {
                 .frame(width: 32)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(book.name)
+                Text(book.displayName)
                     .font(.subheadline)
                     .fontWeight(isSelected ? .semibold : .regular)
 

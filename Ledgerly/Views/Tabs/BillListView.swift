@@ -27,7 +27,7 @@ struct BillListView: View {
         }
         return all.filter { transaction in
             (transaction.note?.localizedCaseInsensitiveContains(searchText) ?? false) ||
-            (transaction.category?.name.localizedCaseInsensitiveContains(searchText) ?? false)
+            (transaction.category?.displayName.localizedCaseInsensitiveContains(searchText) ?? false)
         }
     }
 
@@ -51,13 +51,13 @@ struct BillListView: View {
                     }
                 } else {
                     ContentUnavailableView(
-                        "No Ledger",
+                        loc["bills.noLedger"],
                         systemImage: "book",
-                        description: Text("Create a ledger to start recording")
+                        description: Text(loc["bills.noLedgerDesc"])
                     )
                 }
             }
-            .navigationTitle("Bills")
+            .navigationTitle(loc["bills.title"])
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -82,7 +82,7 @@ struct BillListView: View {
                         HStack(spacing: 6) {
                             Image(systemName: "magnifyingglass")
                                 .foregroundStyle(.secondary)
-                            TextField("Search transactions", text: $searchText)
+                            TextField(loc["bills.search"], text: $searchText)
                                 .textFieldStyle(.plain)
                             if !searchText.isEmpty && searchText != " " {
                                 Button {
@@ -105,7 +105,7 @@ struct BillListView: View {
                                 searchText = ""
                             }
                         } label: {
-                            Text("Cancel")
+                            Text(loc["bills.cancel"])
                                 .font(.subheadline)
                         }
                     }
@@ -180,7 +180,7 @@ struct BillListView: View {
 
         return HStack(spacing: 0) {
             VStack(spacing: 4) {
-                Text("Expense").font(.caption).foregroundStyle(.white.opacity(0.8))
+                Text(loc["bills.expense"]).font(.caption).foregroundStyle(.white.opacity(0.8))
                 Text(expense.currencyString).font(.subheadline).fontWeight(.semibold).foregroundStyle(.white)
             }
             .frame(maxWidth: .infinity)
@@ -194,7 +194,7 @@ struct BillListView: View {
             )
 
             VStack(spacing: 4) {
-                Text("Income").font(.caption).foregroundStyle(.white.opacity(0.8))
+                Text(loc["bills.income"]).font(.caption).foregroundStyle(.white.opacity(0.8))
                 Text(income.currencyString).font(.subheadline).fontWeight(.semibold).foregroundStyle(.white)
             }
             .frame(maxWidth: .infinity)
@@ -208,7 +208,7 @@ struct BillListView: View {
             )
 
             VStack(spacing: 4) {
-                Text("Balance").font(.caption).foregroundStyle(.white.opacity(0.8))
+                Text(loc["bills.balance"]).font(.caption).foregroundStyle(.white.opacity(0.8))
                 Text((income - expense).currencyString).font(.subheadline).fontWeight(.semibold).foregroundStyle(.white)
             }
             .frame(maxWidth: .infinity)
@@ -253,7 +253,7 @@ struct BillListView: View {
                     }
                 } header: {
                     HStack {
-                        Text(day.formatted(.dateTime.month().day()))
+                        Text(day.formatted(.dateTime.locale(Language.current.locale).month().day()))
                         Spacer()
                         let dayExpense = (grouped[day] ?? [])
                             .filter { $0.transactionType == .expense }

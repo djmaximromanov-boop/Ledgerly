@@ -21,6 +21,10 @@ targets:
       - path: Ledgerly
         excludes:
           - "**/.DS_Store"
+      - path: Shared/FinanceWidgetSnapshot.swift
+    dependencies:
+      - target: MOREFinanceWidget
+        embed: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ledgerly.app
@@ -31,11 +35,31 @@ targets:
         SWIFT_EMIT_LOC_STRINGS: "YES"
         CURRENT_PROJECT_VERSION: "1"
         MARKETING_VERSION: "1.0.0"
+        CODE_SIGN_ENTITLEMENTS: Ledgerly/Ledgerly.entitlements
     entitlements:
       path: Ledgerly/Ledgerly.entitlements
       properties:
-        com.apple.developer.icloud-container-identifiers:
-          - "iCloud.com.ledgerly.app"
-        com.apple.developer.ubiquity-container-identifiers:
-          - "iCloud.com.ledgerly.app"
-        com.apple.developer.icloud-container-environment: Production
+        com.apple.security.application-groups:
+          - "group.com.ledgerly.app"
+
+  MOREFinanceWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: MOREFinanceWidget/FinanceWidget.swift
+      - path: Shared/FinanceWidgetSnapshot.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ledgerly.app.widget
+        MARKETING_VERSION: "1.0.0"
+        INFOPLIST_FILE: MOREFinanceWidget/Info.plist
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_STYLE: Automatic
+        APPLICATION_EXTENSION_API_ONLY: true
+        SKIP_INSTALL: true
+        CODE_SIGN_ENTITLEMENTS: MOREFinanceWidget/MOREFinanceWidget.entitlements
+    entitlements:
+      path: MOREFinanceWidget/MOREFinanceWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - "group.com.ledgerly.app"

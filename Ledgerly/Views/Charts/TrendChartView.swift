@@ -7,15 +7,15 @@ struct TrendChartView: View {
     var body: some View {
         Chart(data, id: \.date) { item in
             LineMark(
-                x: .value("Date", item.date),
-                y: .value("Amount", Double(truncating: NSDecimalNumber(decimal: item.amount)))
+                x: .value(LocalizationManager.localized("stats.date"), item.date),
+                y: .value(LocalizationManager.localized("stats.amount"), Double(truncating: NSDecimalNumber(decimal: item.amount)))
             )
             .foregroundStyle(.red)
             .interpolationMethod(.catmullRom)
 
             AreaMark(
-                x: .value("Date", item.date),
-                y: .value("Amount", Double(truncating: NSDecimalNumber(decimal: item.amount)))
+                x: .value(LocalizationManager.localized("stats.date"), item.date),
+                y: .value(LocalizationManager.localized("stats.amount"), Double(truncating: NSDecimalNumber(decimal: item.amount)))
             )
             .foregroundStyle(
                 .linearGradient(
@@ -32,6 +32,6 @@ struct TrendChartView: View {
                 AxisValueLabel(format: .dateTime.day())
             }
         }
-        .chartYAxisLabel("¥")
+        .chartYAxisLabel(MoneyFormatting.symbol)
     }
 }

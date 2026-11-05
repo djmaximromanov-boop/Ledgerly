@@ -186,7 +186,7 @@ struct CategoryListView: View {
                 )
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(category.name)
+                Text(category.displayName)
                     .font(.body)
 
                 if category.isSystem {

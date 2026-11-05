@@ -51,7 +51,7 @@ struct BudgetProgressView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text(budget.budgetPeriod == .monthly ? "Monthly Budget" : "Yearly Budget")
+                Text(budget.budgetPeriod == .monthly ? loc["budget.monthly"] : loc["budget.yearly"])
                     .font(.subheadline)
                     .fontWeight(.medium)
 
@@ -94,7 +94,7 @@ struct BudgetProgressView: View {
             .frame(height: 8)
 
             if isOverBudget {
-                Text("Over budget \((spent - total).currencyString)")
+                Text(loc["budget.overBudget"] + " \((spent - total).currencyString)")
                     .font(.caption)
                     .foregroundStyle(.red)
             } else {

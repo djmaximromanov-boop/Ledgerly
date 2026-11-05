@@ -15,7 +15,7 @@ struct BookHeaderView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(book.name)
+                    Text(book.displayName)
                         .font(.headline)
                         .fontWeight(.semibold)
 

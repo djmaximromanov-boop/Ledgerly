@@ -20,13 +20,15 @@ class PersistenceController {
             description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
             description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
 
-            #if targetEnvironment(simulator)
-            description.cloudKitContainerOptions = nil
-            #else
+            #if LEDGERLY_CLOUDKIT_ENABLED
             let options = NSPersistentCloudKitContainerOptions(
-                containerIdentifier: "iCloud.com.bookkeeper.app"
+                containerIdentifier: "iCloud.com.ledgerly.app"
             )
             description.cloudKitContainerOptions = options
+            #else
+            // Personal-device builds work without a paid CloudKit capability.
+            // Data stays in the local Core Data store unless CloudKit is enabled explicitly.
+            description.cloudKitContainerOptions = nil
             #endif
         }
 

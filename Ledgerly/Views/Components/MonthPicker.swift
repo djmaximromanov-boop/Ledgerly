@@ -13,7 +13,7 @@ struct MonthPicker: View {
     }
 
     private func updateMonthText() {
-        monthText = selectedDate.formatted(.dateTime.year().month(.wide))
+        monthText = selectedDate.formatted(.dateTime.locale(Language.current.locale).year().month(.wide))
     }
 
     var body: some View {

@@ -184,13 +184,14 @@ class StatisticsViewModel: ObservableObject {
             let day = cal.startOfDay(for: t.date)
             if t.transactionType == .expense {
                 expByDate[day, default: 0] += t.amount as Decimal
-            } else {
+            } else if t.transactionType == .income {
                 incByDate[day, default: 0] += t.amount as Decimal
             }
         }
 
         let fmt = DateFormatter()
-        fmt.dateFormat = "M/d"
+        fmt.locale = Language.current.locale
+        fmt.setLocalizedDateFormatFromTemplate("Md")
 
         var points: [TrendDataPoint] = []
         var cur = dateRange.start
@@ -214,12 +215,13 @@ class StatisticsViewModel: ObservableObject {
             guard let monthStart = cal.date(from: comps) else { continue }
             if t.transactionType == .expense {
                 expByMonth[monthStart, default: 0] += t.amount as Decimal
-            } else {
+            } else if t.transactionType == .income {
                 incByMonth[monthStart, default: 0] += t.amount as Decimal
             }
         }
 
         let fmt = DateFormatter()
+        fmt.locale = Language.current.locale
         fmt.dateFormat = "MMM"
 
         var points: [TrendDataPoint] = []
@@ -238,6 +240,7 @@ class StatisticsViewModel: ObservableObject {
 
     var dateRangeLabel: String {
         let fmt = DateFormatter()
+        fmt.locale = Language.current.locale
         switch selectedPeriod {
         case .week:
             fmt.dateFormat = "MMM d"

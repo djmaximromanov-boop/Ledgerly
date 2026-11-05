@@ -11,6 +11,7 @@
 		04E3DC4151FF18BF73E7D631 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20575F598AA4B61F51F7348 /* CategoryType.swift */; };
 		0704F1705B25099392BCBEBE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2615F29FFED4F7F706E35E /* CoreDataStack.swift */; };
 		09D2EF51028C19F6976A9254 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC60049DC74AB6557130B960 /* LocalizationManager.swift */; };
+		0B4E52F8A1C6D3E7F9012A4B /* MoneyOKImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */; };
 		09F9CE1D2E0ECDB5C5E2EB35 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386CE3996E057F23D43B069 /* ArchiveService.swift */; };
 		0AC0ADD33CA2F87751981822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F2A890E728911E00541E49 /* Assets.xcassets */; };
 		0E86F04CE14C54B4FB098426 /* Transaction+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12AFA4951C68A24EE6B9137 /* Transaction+CoreData.swift */; };
@@ -60,6 +61,11 @@
 		DD2CF97FB46951EB4E9AB575 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A1BEE7CAE7E0F0D59DC4F /* StatisticsViewModel.swift */; };
 		E720EC0B98DF9247C5956C46 /* AccountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4332A1942A1A11A29A046692 /* AccountType.swift */; };
 		EB8E50982212D2CB30F27F62 /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140767D870974DA7A9FF21E /* MonthPicker.swift */; };
+		BF6E31D0030B40F9868D6FF3 /* FinanceWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE5FE93E0D47BD94CE794D /* FinanceWidgetSnapshot.swift */; };
+		938CEEA6043E4649A548C930 /* FinanceWidgetSnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA0F100000000000000001 /* FinanceWidgetSnapshotService.swift */; };
+		9422A9001FB94204A4ACD9B2 /* FinanceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B33831F764547BF9929E6FA /* FinanceWidget.swift */; };
+		88399928177345E190FFCDCD /* FinanceWidgetSnapshot.swift in Widget Sources */ = {isa = PBXBuildFile; fileRef = 6EDE5FE93E0D47BD94CE794D /* FinanceWidgetSnapshot.swift */; };
+		4BDB2A8C5D68403EA0A10E39 /* MORE Finance Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31DC9390C4574AB9802C27D9 /* MOREFinanceWidget.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +113,7 @@
 		C31F1FA03711EABC5F4CC761 /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
 		C49A1BEE7CAE7E0F0D59DC4F /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		CAED42728E34A08C40392FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyOKImportService.swift; sourceTree = "<group>"; };
 		D2C7270335F5DE18EF00117C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		D627BCA744EBF23187C54BF4 /* MemberComparisonChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberComparisonChart.swift; sourceTree = "<group>"; };
 		D9D3C0E6A6F21989E1EB9F33 /* CategoryPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPieChart.swift; sourceTree = "<group>"; };
@@ -119,6 +126,12 @@
 		F36863FA65FD5D0DCF271723 /* SharingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingService.swift; sourceTree = "<group>"; };
 		F6773294291C9F0179902676 /* Ledgerly.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ledgerly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA678BED221DEB2CFD926B5C /* MemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListView.swift; sourceTree = "<group>"; };
+		6EDE5FE93E0D47BD94CE794D /* FinanceWidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/FinanceWidgetSnapshot.swift; sourceTree = "<group>"; };
+		55AA0F100000000000000001 /* FinanceWidgetSnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceWidgetSnapshotService.swift; sourceTree = "<group>"; };
+		4B33831F764547BF9929E6FA /* FinanceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceWidget.swift; sourceTree = "<group>"; };
+		DC4767EF983D43238BE82840 /* MOREFinanceWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MOREFinanceWidget.entitlements; sourceTree = "<group>"; };
+		31DC9390C4574AB9802C27D9 /* MOREFinanceWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MOREFinanceWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4BB95A245AC4BA6A57581D7 /* MOREFinanceWidget Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -139,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F6773294291C9F0179902676 /* Ledgerly.app */,
+				31DC9390C4574AB9802C27D9 /* MOREFinanceWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +171,8 @@
 			children = (
 				829488D077E82BA3B870C6E5 /* Ledgerly */,
 				2DB8D70D8C5C66B2CDD4520C /* Products */,
+				C783DFBF0F184D31BFEEACA8 /* Shared */,
+				4C8473C6C4104993BA93AC66 /* MOREFinanceWidget */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,7 +182,9 @@
 				1386CE3996E057F23D43B069 /* ArchiveService.swift */,
 				332DDAFD0D9C8CA70DB92FFC /* CloudKitService.swift */,
 				EC60049DC74AB6557130B960 /* LocalizationManager.swift */,
+				0B4E52F8A1C6D3E7F9012A4A /* MoneyOKImportService.swift */,
 				D2C7270335F5DE18EF00117C /* NotificationService.swift */,
+				55AA0F100000000000000001 /* FinanceWidgetSnapshotService.swift */,
 				F36863FA65FD5D0DCF271723 /* SharingService.swift */,
 			);
 			path = Services;
@@ -312,6 +330,24 @@
 			path = Sharing;
 			sourceTree = "<group>";
 		};
+		C783DFBF0F184D31BFEEACA8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				6EDE5FE93E0D47BD94CE794D /* FinanceWidgetSnapshot.swift */,
+			);
+			path = .;
+			sourceTree = "<group>";
+		};
+		4C8473C6C4104993BA93AC66 /* MOREFinanceWidget */ = {
+			isa = PBXGroup;
+			children = (
+				4B33831F764547BF9929E6FA /* FinanceWidget.swift */,
+				F4BB95A245AC4BA6A57581D7 /* MOREFinanceWidget Info.plist */,
+				DC4767EF983D43238BE82840 /* MOREFinanceWidget.entitlements */,
+			);
+			path = MOREFinanceWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -320,11 +356,14 @@
 			buildConfigurationList = 57A050B7B6A622390E5C1AF9 /* Build configuration list for PBXNativeTarget "Ledgerly" */;
 			buildPhases = (
 				4086C50DCE5CB4D6F49B194A /* Sources */,
+				0CB6163D9DA140D79C17A547 /* Frameworks */,
 				A38366E671329F7AB56B0354 /* Resources */,
+				020A090B880C400CA0785B42 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				065DCC5F156846C395C20BD5 /* PBXTargetDependency */,
 			);
 			name = Ledgerly;
 			packageProductDependencies = (
@@ -332,6 +371,37 @@
 			productName = Ledgerly;
 			productReference = F6773294291C9F0179902676 /* Ledgerly.app */;
 			productType = "com.apple.product-type.application";
+		};
+		0172DF1B715D4D249477CDD0 /* MOREFinanceWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAC5F63B071B404ABDC7AEEF /* Build configuration list for PBXNativeTarget "MOREFinanceWidget" */;
+			buildPhases = (
+				EA1BBF44D46743648616A8ED /* Sources */,
+				0B402D7143154DB2A3EAE340 /* Frameworks */,
+				F6230E4B137D46E2B795148A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MOREFinanceWidget;
+			packageProductDependencies = (
+			);
+			productName = MOREFinanceWidget;
+			productReference = 31DC9390C4574AB9802C27D9 /* MOREFinanceWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		12CCFFC0C5CA4E249DBEC965 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7BF75CBD46FB0B468322F26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0172DF1B715D4D249477CDD0;
+			remoteInfo = MOREFinanceWidget;
+		};
+		065DCC5F156846C395C20BD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0172DF1B715D4D249477CDD0 /* MOREFinanceWidget */;
+			targetProxy = 12CCFFC0C5CA4E249DBEC965 /* PBXContainerItemProxy */;
 		};
 /* End PBXNativeTarget section */
 
@@ -343,6 +413,11 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					F7006B96BF3666240E9160E8 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					0172DF1B715D4D249477CDD0 = {
+						CreatedOnToolsVersion = 16.0;
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
@@ -363,9 +438,41 @@
 			projectRoot = "";
 			targets = (
 				F7006B96BF3666240E9160E8 /* Ledgerly */,
+				0172DF1B715D4D249477CDD0 /* MOREFinanceWidget */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0CB6163D9DA140D79C17A547 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B402D7143154DB2A3EAE340 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		020A090B880C400CA0785B42 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4BDB2A8C5D68403EA0A10E39 /* MOREFinanceWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A38366E671329F7AB56B0354 /* Resources */ = {
@@ -414,6 +521,7 @@
 				20A04B00C356A1B36BD6DC24 /* Ledgerly.xcdatamodeld in Sources */,
 				85243F606AF4070693F950D1 /* LedgerlyApp.swift in Sources */,
 				09D2EF51028C19F6976A9254 /* LocalizationManager.swift in Sources */,
+				0B4E52F8A1C6D3E7F9012A4B /* MoneyOKImportService.swift in Sources */,
 				16F5B2C975EB7861AC7EE7C3 /* Member+CoreData.swift in Sources */,
 				B8D26F7CF85880DE0064C139 /* MemberComparisonChart.swift in Sources */,
 				26D8CAE7319B05436023B508 /* MemberListView.swift in Sources */,
@@ -431,10 +539,28 @@
 				75E281DD11C30D6D202258E8 /* StatisticsView.swift in Sources */,
 				DD2CF97FB46951EB4E9AB575 /* StatisticsViewModel.swift in Sources */,
 				0E86F04CE14C54B4FB098426 /* Transaction+CoreData.swift in Sources */,
+				BF6E31D0030B40F9868D6FF3 /* FinanceWidgetSnapshot.swift in Sources */,
+				938CEEA6043E4649A548C930 /* FinanceWidgetSnapshotService.swift in Sources */,
 				44D4EC7434AFA4FC1A6A33C0 /* TransactionRow.swift in Sources */,
 				35AAFB385AED08C7E6BD4BDF /* TransactionType.swift in Sources */,
 				215C5AAE1C967334CE43994E /* TransactionViewModel.swift in Sources */,
 				6F0469DA7EAC0B2EADB1F312 /* TrendChartView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA1BBF44D46743648616A8ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9422A9001FB94204A4ACD9B2 /* FinanceWidget.swift in Sources */,
+				88399928177345E190FFCDCD /* FinanceWidgetSnapshot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6230E4B137D46E2B795148A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,17 +696,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Ledgerly/Ledgerly.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ledgerly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				CODE_SIGN_ENTITLEMENTS = Ledgerly/Ledgerly.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ledgerly.app;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -592,21 +718,63 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Ledgerly/Ledgerly.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ledgerly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				CODE_SIGN_ENTITLEMENTS = Ledgerly/Ledgerly.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ledgerly.app;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0F71775C600E449F9B32AC67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = MOREFinanceWidget/MOREFinanceWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MOREFinanceWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../../Frameworks");
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledgerly.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F55EA8748B6F4D848C485FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = MOREFinanceWidget/MOREFinanceWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MOREFinanceWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../../Frameworks");
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledgerly.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -627,6 +795,15 @@
 			buildConfigurations = (
 				918AFA0F3716EAAE9DCEB865 /* Debug */,
 				B206D5A66FF8F3FAA450B962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FAC5F63B071B404ABDC7AEEF /* Build configuration list for PBXNativeTarget "MOREFinanceWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F71775C600E449F9B32AC67 /* Debug */,
+				F55EA8748B6F4D848C485FB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

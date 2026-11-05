@@ -16,6 +16,10 @@ extension Category {
     @NSManaged public var book: Book?
     @NSManaged public var transactions: NSSet?
 
+    var displayName: String {
+        isSystem ? LocalizationManager.systemCategoryName(name) : name
+    }
+
     var categoryType: CategoryType {
         get { CategoryType(rawValue: type) ?? .expense }
         set { type = newValue.rawValue }

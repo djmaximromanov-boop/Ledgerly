@@ -7,7 +7,7 @@ struct CategoryPieChart: View {
     var body: some View {
         Chart(data, id: \.category) { item in
             SectorMark(
-                angle: .value("Amount", Double(truncating: NSDecimalNumber(decimal: item.amount))),
+                angle: .value(LocalizationManager.localized("stats.amount"), Double(truncating: NSDecimalNumber(decimal: item.amount))),
                 innerRadius: .ratio(0.5),
                 angularInset: 1.5
             )

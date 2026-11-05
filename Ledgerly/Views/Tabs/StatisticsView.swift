@@ -293,7 +293,7 @@ struct StatisticsView: View {
                 .fill(Color.categoryColor(for: index))
                 .frame(width: 10, height: 10)
 
-            Text(item.0.name)
+            Text(item.0.displayName)
                 .font(.subheadline)
 
             Spacer()
@@ -361,7 +361,7 @@ struct StatisticsView: View {
                     .cornerRadius(4)
                 }
                 .frame(height: 150)
-                .chartYAxisLabel("¥")
+                .chartYAxisLabel(MoneyFormatting.symbol)
             }
         }
         .padding()
@@ -387,7 +387,7 @@ struct CategoryDetailView: View {
                 }
                 .padding()
             }
-            .navigationTitle(category.name)
+            .navigationTitle(category.displayName)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -409,13 +409,13 @@ struct CategoryDetailView: View {
                 Chart(subCategories, id: \.0.id) { subCategory, amount in
                     BarMark(
                         x: .value(loc["stats.amount"], Double(truncating: NSDecimalNumber(decimal: amount))),
-                        y: .value(loc["stats.category"], subCategory.name)
+                        y: .value(loc["stats.category"], subCategory.displayName)
                     )
                     .foregroundStyle(Color.categoryColor(for: subCategories.firstIndex(where: { $0.0.id == subCategory.id }) ?? 0))
                     .cornerRadius(4)
                 }
                 .frame(height: CGFloat(subCategories.count) * 40)
-                .chartXAxisLabel("¥")
+                .chartXAxisLabel(MoneyFormatting.symbol)
 
                 VStack(spacing: 8) {
                     ForEach(Array(subCategories.enumerated()), id: \.offset) { index, item in
@@ -424,7 +424,7 @@ struct CategoryDetailView: View {
                                 .fill(Color.categoryColor(for: index))
                                 .frame(width: 10, height: 10)
 
-                            Text(item.0.name)
+                            Text(item.0.displayName)
                                 .font(.subheadline)
 
                             Spacer()
