@@ -356,7 +356,7 @@ enum MoneyOKImportService {
         let names = ((try? context.fetch(request)) ?? []).map(\.name)
         guard names.contains(base) else { return base }
         var suffix = 2
-        while names.contains("\(base) ((suffix))") { suffix += 1 }
+        while names.contains("\(base) (\(suffix))") { suffix += 1 }
         return "\(base) (\(suffix))"
     }
 }
