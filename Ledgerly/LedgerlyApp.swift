@@ -21,7 +21,26 @@ struct LedgerlyApp: App {
                 .environmentObject(locManager)
                 .task {
                     ServiceLocator.shared.persistenceController = PersistenceController.shared
+                    FinanceWidgetSnapshotService.refresh(
+                        book: bookVM.currentBook,
+                        context: PersistenceController.shared.viewContext
+                    )
                     _ = await NotificationService.shared.requestAuthorization()
+                }
+                .onChange(of: bookVM.currentBook?.id) { _, _ in
+                    FinanceWidgetSnapshotService.refresh(
+                        book: bookVM.currentBook,
+                        context: PersistenceController.shared.viewContext
+                    )
+                }
+                .onReceive(NotificationCenter.default.publisher(
+                    for: .NSManagedObjectContextDidSave,
+                    object: PersistenceController.shared.viewContext
+                )) { _ in
+                    FinanceWidgetSnapshotService.refresh(
+                        book: bookVM.currentBook,
+                        context: PersistenceController.shared.viewContext
+                    )
                 }
         }
     }
