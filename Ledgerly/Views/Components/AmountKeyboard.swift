@@ -48,7 +48,7 @@ struct AmountKeyboard: View {
                 HStack(spacing: 6) {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.body.weight(.semibold))
-                    Text("Save")
+                    Text(loc["quickEntry.save"])
                         .font(.headline)
                 }
                 .foregroundStyle(.white)

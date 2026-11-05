@@ -17,7 +17,7 @@ struct TransactionRow: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(transaction.category?.name ?? "Uncategorized")
+                Text(transaction.category?.displayName ?? loc["component.uncategorized"])
                     .font(.subheadline)
                     .fontWeight(.medium)
 
@@ -62,7 +62,7 @@ struct TransactionRow: View {
                     .fontWeight(.semibold)
                     .foregroundStyle(transaction.transactionType == .expense ? .red : .green)
 
-                Text(transaction.date.formatted(.dateTime.month().day()))
+                Text(transaction.date.formatted(.dateTime.locale(Language.current.locale).month().day()))
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }

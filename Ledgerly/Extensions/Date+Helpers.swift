@@ -28,11 +28,11 @@ extension Date {
     }
 
     var monthString: String {
-        formatted(.dateTime.year().month(.wide))
+        formatted(.dateTime.locale(Language.current.locale).year().month(.wide))
     }
 
     var shortDateString: String {
-        formatted(.dateTime.month().day())
+        formatted(.dateTime.locale(Language.current.locale).month().day())
     }
 
     var isToday: Bool {

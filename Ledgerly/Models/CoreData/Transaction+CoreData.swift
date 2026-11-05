@@ -35,10 +35,7 @@ extension Transaction {
     }
 
     var formattedAmount: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "CNY"
-        return formatter.string(from: amount) ?? "¥0.00"
+        (amount as Decimal).currencyString
     }
 
     static func create(

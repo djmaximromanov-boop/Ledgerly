@@ -17,7 +17,7 @@ struct ShareBookView: View {
                     .font(.system(size: 60))
                     .foregroundStyle(Color.accentColor)
 
-                Text(String(format: loc["share.shareName"], book.name))
+                Text(String(format: loc["share.shareName"], book.displayName))
                     .font(.title2)
                     .fontWeight(.semibold)
 

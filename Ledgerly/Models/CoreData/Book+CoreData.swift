@@ -18,6 +18,8 @@ extension Book {
     @NSManaged public var budgets: NSSet?
     @NSManaged public var accounts: NSSet?
 
+    var displayName: String { LocalizationManager.defaultBookName(name) }
+
     var bookType: BookType {
         get { BookType(rawValue: type) ?? .personal }
         set { type = newValue.rawValue }
@@ -44,7 +46,7 @@ extension Book {
         name: String,
         icon: String = "book",
         type: BookType = .personal,
-        currency: String = "CNY"
+        currency: String = MoneyFormatting.currencyCode
     ) -> Book {
         let book = Book(context: context)
         book.id = UUID()

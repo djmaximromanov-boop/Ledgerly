@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("currency") private var currency = "CNY"
+    @AppStorage("currency") private var currency = "RUB"
     @AppStorage("defaultBookId") private var defaultBookId = ""
     @EnvironmentObject var loc: LocalizationManager
 
@@ -10,6 +10,7 @@ struct SettingsView: View {
             Form {
                 Section(loc["settings.general"]) {
                     Picker(loc["settings.currency"], selection: $currency) {
+                        Text(loc["settings.rub"]).tag("RUB")
                         Text(loc["settings.cny"]).tag("CNY")
                         Text(loc["settings.usd"]).tag("USD")
                         Text(loc["settings.eur"]).tag("EUR")
@@ -111,10 +112,11 @@ struct DataExportView: View {
         var csv = "\(loc["stats.date"]),\(loc["categories.type"]),\(loc["stats.category"]),\(loc["ledgers.amount"]),\(loc["quickEntry.note"])\n"
         for t in transactions {
             let type = t.transactionType == .expense ? loc["categories.expense"] : loc["categories.income"]
-            let category = t.category?.name ?? ""
+            let category = t.category?.displayName ?? ""
             let amount = (t.amount as Decimal).currencyString
             let note = t.note ?? ""
-            csv += "\(t.date.formatted(.dateTime.year().month().day())),\(type),\(category),\(amount),\(note)\n"
+            let fields = [t.date.formatted(.dateTime.locale(Language.current.locale).year().month().day()), type, category, amount, note]
+            csv += fields.map { "\"" + $0.replacingOccurrences(of: "\"", with: "\"\"") + "\"" }.joined(separator: ",") + "\n"
         }
         exportText = csv
     }
@@ -126,9 +128,9 @@ struct DataExportView: View {
         var items: [[String: Any]] = []
         for t in transactions {
             items.append([
-                "date": t.date.formatted(.dateTime.year().month().day()),
+                "date": t.date.formatted(.dateTime.locale(Language.current.locale).year().month().day()),
                 "type": t.transactionType == .expense ? "expense" : "income",
-                "category": t.category?.name ?? "",
+                "category": t.category?.displayName ?? "",
                 "amount": String(describing: t.amount),
                 "note": t.note ?? ""
             ])
