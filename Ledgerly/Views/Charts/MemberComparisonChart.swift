@@ -7,13 +7,13 @@ struct MemberComparisonChart: View {
     var body: some View {
         Chart(data, id: \.member) { item in
             BarMark(
-                x: .value("Member", item.member),
-                y: .value("Amount", Double(truncating: NSDecimalNumber(decimal: item.amount)))
+                x: .value(LocalizationManager.localized("stats.member"), item.member),
+                y: .value(LocalizationManager.localized("stats.amount"), Double(truncating: NSDecimalNumber(decimal: item.amount)))
             )
             .foregroundStyle(item.color)
             .cornerRadius(6)
         }
         .frame(height: 150)
-        .chartYAxisLabel("¥")
+        .chartYAxisLabel(MoneyFormatting.symbol)
     }
 }

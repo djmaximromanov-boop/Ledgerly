@@ -190,7 +190,8 @@ class StatisticsViewModel: ObservableObject {
         }
 
         let fmt = DateFormatter()
-        fmt.dateFormat = "M/d"
+        fmt.locale = Language.current.locale
+        fmt.setLocalizedDateFormatFromTemplate("Md")
 
         var points: [TrendDataPoint] = []
         var cur = dateRange.start
@@ -220,6 +221,7 @@ class StatisticsViewModel: ObservableObject {
         }
 
         let fmt = DateFormatter()
+        fmt.locale = Language.current.locale
         fmt.dateFormat = "MMM"
 
         var points: [TrendDataPoint] = []
@@ -238,6 +240,7 @@ class StatisticsViewModel: ObservableObject {
 
     var dateRangeLabel: String {
         let fmt = DateFormatter()
+        fmt.locale = Language.current.locale
         switch selectedPeriod {
         case .week:
             fmt.dateFormat = "MMM d"

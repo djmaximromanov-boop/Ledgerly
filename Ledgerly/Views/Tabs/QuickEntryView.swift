@@ -140,7 +140,7 @@ struct QuickEntryView: View {
                                 }
                             } label: {
                                 Label {
-                                    Text(b.name)
+                                    Text(b.displayName)
                                 } icon: {
                                     Image(systemName: b.id == book.id ? "checkmark.circle.fill" : b.icon)
                                 }
@@ -157,7 +157,7 @@ struct QuickEntryView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                             VStack(alignment: .leading, spacing: 1) {
-                                Text(book.name)
+                                Text(book.displayName)
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(.white)
                                 Text(book.bookType == .personal ? loc["quickEntry.personal"] : loc["quickEntry.shared"])
@@ -197,7 +197,7 @@ struct QuickEntryView: View {
             .padding(.top, 14)
 
             HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text("¥")
+                Text(MoneyFormatting.symbol)
                     .font(.system(size: 24, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.7))
 
@@ -213,7 +213,7 @@ struct QuickEntryView: View {
                     HStack(spacing: 4) {
                         Image(systemName: category.icon)
                             .font(.caption)
-                        Text(category.name)
+                        Text(category.displayName)
                             .font(.caption.weight(.medium))
                     }
                     .foregroundStyle(.white.opacity(0.85))
@@ -260,7 +260,7 @@ struct QuickEntryView: View {
         HStack(spacing: 4) {
             Image(systemName: "calendar")
                 .font(.system(size: 10))
-            Text(transactionVM.date.formatted(.dateTime.month().day()))
+            Text(transactionVM.date.formatted(.dateTime.locale(Language.current.locale).month().day()))
                 .font(.system(size: 11, weight: .medium))
         }
         .foregroundStyle(.white.opacity(0.7))
@@ -291,7 +291,7 @@ struct QuickEntryView: View {
             let generator = UIImpactFeedbackGenerator(style: .light)
             generator.impactOccurred()
 
-            toastMessage = String(format: loc["quickEntry.saved"], "¥\(savedAmount)")
+            toastMessage = String(format: loc["quickEntry.saved"], "\(savedAmount) \(MoneyFormatting.symbol)")
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 showToast = true
             }

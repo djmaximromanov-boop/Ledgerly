@@ -42,7 +42,7 @@ struct QuickAddCategoryView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Button("Cancel") { dismiss() }
+                Button(loc["common.cancel"]) { dismiss() }
                 Spacer()
                 Text(parentCategory == nil ? loc["categories.addCategory"] : loc["categories.addSubcategory"])
                     .font(.headline)
@@ -66,7 +66,7 @@ struct QuickAddCategoryView: View {
 
             Divider()
 
-            TextField("Category name", text: $name)
+            TextField(loc["categories.categoryName"], text: $name)
                 .textFieldStyle(.roundedBorder)
                 .focused($isNameFocused)
                 .padding(.horizontal, 16)
@@ -77,7 +77,7 @@ struct QuickAddCategoryView: View {
                     Image(systemName: parent.icon)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                    Text(loc["categories.parent"] + ": \(parent.name)")
+                    Text(loc["categories.parent"] + ": \(parent.displayName)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -86,7 +86,7 @@ struct QuickAddCategoryView: View {
                 .padding(.top, 8)
             }
 
-            Text("Choose Icon")
+            Text(loc["categories.chooseIcon"])
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundStyle(.secondary)

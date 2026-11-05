@@ -3,10 +3,11 @@ import Foundation
 extension Decimal {
     var currencyString: String {
         let formatter = NumberFormatter()
+        formatter.locale = Language.current.locale
         formatter.numberStyle = .currency
-        formatter.currencyCode = "CNY"
+        formatter.currencyCode = MoneyFormatting.currencyCode
         formatter.maximumFractionDigits = 2
-        return formatter.string(from: self as NSDecimalNumber) ?? "¥0.00"
+        return formatter.string(from: self as NSDecimalNumber) ?? "0,00 \(MoneyFormatting.symbol)"
     }
 
     var compactString: String {
@@ -25,5 +26,22 @@ extension Decimal {
         let value = NSDecimalNumber(decimal: self).doubleValue
         guard value.isFinite else { return "0.0%" }
         return String(format: "%.1f%%", value * 100)
+    }
+}
+
+/// The existing application uses one display currency; changing it does not convert amounts.
+enum MoneyFormatting {
+    static var currencyCode: String {
+        UserDefaults.standard.string(forKey: "currency") ?? "RUB"
+    }
+
+    static var symbol: String {
+        switch currencyCode {
+        case "RUB": return "₽"
+        case "USD": return "$"
+        case "EUR": return "€"
+        case "JPY", "CNY": return "¥"
+        default: return currencyCode
+        }
     }
 }

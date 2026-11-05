@@ -54,7 +54,7 @@ struct GridCategoryView: View {
                             .sorted { $0.sortOrder < $1.sortOrder }
 
                         sectionView(
-                            title: "Sub-level",
+                            title: loc["component.subLevelCategory"],
                             categories: subCategories,
                             selectedId: selectedCategory?.id,
                             showAddButton: true,
@@ -277,7 +277,7 @@ struct CategoryGridItem: View {
                         .foregroundStyle(isSelected ? .white : .primary)
                 }
 
-                Text(category.name)
+                Text(category.displayName)
                     .font(.system(size: 10, weight: isSelected ? .medium : .regular))
                     .foregroundStyle(isSelected ? themeColor : .secondary)
                     .lineLimit(1)
