@@ -24,7 +24,7 @@ class PersistenceController {
             description.cloudKitContainerOptions = nil
             #else
             let options = NSPersistentCloudKitContainerOptions(
-                containerIdentifier: "iCloud.com.bookkeeper.app"
+                containerIdentifier: "iCloud.com.ledgerly.app"
             )
             description.cloudKitContainerOptions = options
             #endif
